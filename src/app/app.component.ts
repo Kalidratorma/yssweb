@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {User} from "./entities/user";
+import {AccountService} from "./services";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'yssWeb';
+
+  user?: User | null;
+
+  constructor(private accountService: AccountService) {
+    this.accountService.user.subscribe(x => this.user = x);
+  }
+
+  logout() {
+    this.accountService.logout();
+  }
 }
