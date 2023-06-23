@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
-import {User} from "../entities/user";
-import {AccountService} from "../services";
+import {User} from "../../entities/user";
+import {AccountService} from "../../services";
 
 @Component({ templateUrl: 'home.component.html' })
 export class HomeComponent {

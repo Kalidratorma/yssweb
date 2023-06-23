@@ -5,8 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {HomeComponent} from "./home";
-import {AlertComponent} from "./alert";
+import {HomeComponent} from "./pages/home";
+import {AlertComponent} from "./pages/alert";
 import {ErrorInterceptor, fakeBackendProvider, JwtInterceptor} from "./helpers";
 
 @NgModule({
