@@ -1,19 +1,26 @@
+import {IceType} from "./ice-type";
+
 export interface GameFormat {
 
-    id: number;
+  id: number;
 
-    /**
-     * Название формата
-     */
-    name: String;
+  /**
+   * Название формата
+   */
+  name: String;
 
-    /**
-     * Тип льда
-     */
-    iceType: IceType;
+  /**
+   * Коммерческая/некоммерческая игра
+   */
+  isCommercial: Boolean
 
-    /**
-     * Количество игроков в команде
-     */
-    numberOfPlayers: number;
+  /**
+   * Тип льда
+   */
+  iceType: IceType;
+
+  /**
+   * Количество игроков в команде
+   */
+  numberOfPlayers: number;
 }

@@ -1,0 +1,33 @@
+<h1>Форматы игры</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить формат</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Наименование</th>
+            <th style="width: 30%">Коммерческая/некоммерческая игра</th>
+            <th style="width: 30%">Тип льда</th>
+            <th style="width: 30%">Количество игроков</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let gameFormat of gameFormats">
+            <td>{{gameFormat.name}}</td>
+            <td>{{gameFormat.isCommercial}}</td>
+            <td>{{gameFormat.iceType}}</td>
+            <td>{{gameFormat.numberOfPlayers}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{gameFormat.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <button (click)="deleteGameFormat(gameFormat.id)" class="btn btn-sm btn-danger btn-delete-gameFormat" [disabled]="gameFormat.isDeleting">
+                    <span *ngIf="gameFormat.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!gameFormat.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!gameFormats">
+            <td colspan="5" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
