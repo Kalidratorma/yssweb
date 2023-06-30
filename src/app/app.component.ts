@@ -8,7 +8,7 @@ import {AccountService} from "./services";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'yssWeb';
+  title = 'Хоккейная школа Авангард';
 
   user?: User | null;
 

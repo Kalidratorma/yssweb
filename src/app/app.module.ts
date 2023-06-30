@@ -7,7 +7,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {HomeComponent} from "./pages/home";
 import {AlertComponent} from "./pages/alert";
-import {ErrorInterceptor, fakeBackendProvider, JwtInterceptor} from "./helpers";
+import {ErrorInterceptor, JwtInterceptor} from "./helpers";
+import {provideAnimations} from "@angular/platform-browser/animations";
 
 @NgModule({
   imports: [
@@ -22,11 +23,11 @@ import {ErrorInterceptor, fakeBackendProvider, JwtInterceptor} from "./helpers";
     HomeComponent
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
-    fakeBackendProvider
+    provideAnimations(),
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+  ],
+  exports: [
   ],
   bootstrap: [AppComponent]
 })

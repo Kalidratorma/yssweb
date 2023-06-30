@@ -1,4 +1,4 @@
 export enum GripType {
-    RIGHT,
-    LEFT
+    RIGHT = "Правый",
+    LEFT = "Левый"
 }

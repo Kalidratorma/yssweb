@@ -84,7 +84,7 @@ export class AddEditComponent implements OnInit {
   private saveGameFormat() {
     // create or update user based on id param
     return this.name
-      ? this.gameFormatService.update(this.id!, this.form.value)
+      ? this.gameFormatService.update(this.form.value)
       : this.gameFormatService.create(this.form.value);
   }
 }

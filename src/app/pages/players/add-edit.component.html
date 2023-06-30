@@ -1,0 +1,100 @@
+<div *ngIf="player">
+  <h1>{{title}}</h1>
+
+  <div class="mb-3 col">
+    <img src="{{photo}}" class="img-thumbnail" width="200" height="200">
+  </div>
+
+  <form *ngIf="!loading" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="mb-3 col">
+        <label class="form-label">Фамилия</label>
+        <input type="text" [(ngModel)]="player.surname" name="surname" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Имя</label>
+        <input type="text" [(ngModel)]="player.name" name="name" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Отчество</label>
+        <input type="text" [(ngModel)]="player.patronymic" name="patronymic" class="form-control"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3 col">
+        <label class="form-label">Дата рождения</label>
+        <datepicker [date]="player.birthDate">Загрузка...</datepicker>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Родители</label>
+        <input type="text" [(ngModel)]="player.parents" name="parents" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Пол</label>
+        <select [(ngModel)]="player.sex" class="form-select">
+          <option *ngFor="let sex of sexArray" value="" name="sex">{{sex}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3 col">
+        <label class="form-label">Ограничения</label>
+        <input type="text" [(ngModel)]="player.restrictions" name="restrictions" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Игровой номер</label>
+        <input type="text" [(ngModel)]="player.number" name="number" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Год команды</label>
+        <input type="text" [(ngModel)]="player.parents" name="parents" class="form-control"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="mb-3 col">
+        <label class="form-label">Фото</label>
+        <input type="text" [(ngModel)]="player.photo" name="photo" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Амплуа/позиция</label>
+        <input type="text" [(ngModel)]="player.position" name="position" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Договор</label>
+        <input type="text" [(ngModel)]="player.contract" name="contract" class="form-control"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="mb-3 col">
+        <label class="form-label">Рост</label>
+        <input type="text" [(ngModel)]="height" name="height" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Вес</label>
+        <input type="text" [(ngModel)]="weight" name="weight" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Хват</label>
+<!--        <input type="text" [(ngModel)]="grip" name="grip" class="form-control"/>-->
+        <select [(ngModel)]="grip" class="form-select">
+<!--          <option *ngIf="grip" selected>{{grip.valueOf()}}</option>-->
+<!--          <option *ngIf="!grip" selected>Выберите хват...</option>-->
+          <option *ngFor="let gr of grips">{{gr}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <button [disabled]="submitting" class="btn btn-primary">
+        <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+        Save
+      </button>
+      <a routerLink="/players" class="btn btn-link">Cancel</a>
+    </div>
+
+  </form>
+  <div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+  </div>
+</div>

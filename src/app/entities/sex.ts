@@ -6,9 +6,9 @@ export enum Sex {
     /**
      * Мужской
      */
-    MALE,
+    MALE = "Мужской",
     /**
      * Женский
      */
-    FEMALE
+    FEMALE = "Женский"
 }

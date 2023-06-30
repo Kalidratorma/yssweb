@@ -26,7 +26,7 @@ export class GameFormatService {
     return this.http.get<GameFormat>(`${environment.apiUrl}/gameFormat/${gameFormatId}`);
   }
 
-  update(gameFormatId: number, params: GameFormat) {
+  update(params: GameFormat) {
     return this.http.put(`${environment.apiUrl}/gameFormat`, params);
   }
 
