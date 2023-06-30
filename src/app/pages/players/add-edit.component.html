@@ -23,7 +23,7 @@
     <div class="row">
       <div class="mb-3 col">
         <label class="form-label">Дата рождения</label>
-        <datepicker [date]="player.birthDate">Загрузка...</datepicker>
+        <datepicker [model]="birthDate">Загрузка...</datepicker>
       </div>
       <div class="mb-3 col">
         <label class="form-label">Родители</label>
@@ -31,8 +31,9 @@
       </div>
       <div class="mb-3 col">
         <label class="form-label">Пол</label>
-        <select [(ngModel)]="player.sex" class="form-select">
-          <option *ngFor="let sex of sexArray" value="" name="sex">{{sex}}</option>
+        <select [(ngModel)]="player.sex" class="form-select" name="sex">
+          <option value="MALE">Мужской</option>
+          <option value="FEMALE">Женский</option>
         </select>
       </div>
     </div>
@@ -76,11 +77,9 @@
       </div>
       <div class="mb-3 col">
         <label class="form-label">Хват</label>
-<!--        <input type="text" [(ngModel)]="grip" name="grip" class="form-control"/>-->
-        <select [(ngModel)]="grip" class="form-select">
-<!--          <option *ngIf="grip" selected>{{grip.valueOf()}}</option>-->
-<!--          <option *ngIf="!grip" selected>Выберите хват...</option>-->
-          <option *ngFor="let gr of grips">{{gr}}</option>
+        <select [(ngModel)]="grip" class="form-select" name="grip">
+          <option value="RIGHT">Правый</option>
+          <option value="LEFT">Левый</option>
         </select>
       </div>
     </div>

@@ -1,9 +1,8 @@
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+import {CommonModule, JsonPipe} from '@angular/common';
 import {Datepicker} from "../../components";
-import {MatInputModule} from "@angular/material/input";
-import {MatDatepickerModule} from "@angular/material/datepicker";
+import {NgbAlertModule, NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
@@ -11,8 +10,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     ReactiveFormsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatInputModule,
-    MatDatepickerModule
+    NgbDatepickerModule,
+    NgbAlertModule,
+    JsonPipe
   ],
   declarations: [
     Datepicker

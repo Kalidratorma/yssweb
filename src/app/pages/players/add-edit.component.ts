@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 
-import {PlayerService, AlertService} from '../../services';
+import {AlertService, PlayerService} from '../../services';
 import {Player} from "../../entities/player";
 import {GripType} from "../../entities/grip-type";
 import {Physiology} from "../../entities/physiology";
 import {throwError} from "rxjs";
-import {Sex} from "../../entities/sex";
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'player-details',
@@ -30,8 +30,7 @@ export class AddEditComponent implements OnInit {
   savedWeight?: number;
   savedGrip?: GripType;
 
-  grips: GripType[];
-  sexArray: Sex[];
+  birthDate: NgbDateStruct = {} as NgbDateStruct;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,8 +38,6 @@ export class AddEditComponent implements OnInit {
     private playerService: PlayerService,
     private alertService: AlertService
   ) {
-    this.grips = Object.values(GripType);
-    this.sexArray = Object.values(Sex);
   }
 
   ngOnInit() {
@@ -56,7 +53,7 @@ export class AddEditComponent implements OnInit {
         .subscribe(x => {
           this.player = x;
           if (this.player.physiologyList != null) {
-            let listLength = this.player.physiologyList.length-1;
+            let listLength = this.player.physiologyList.length - 1;
             this.height = this.player.physiologyList[listLength].height;
             this.weight = this.player.physiologyList[listLength].weight;
             this.grip = this.player.physiologyList[listLength].grip;
@@ -64,6 +61,13 @@ export class AddEditComponent implements OnInit {
             this.savedHeight = this.height;
             this.savedWeight = this.weight;
             this.savedGrip = this.grip;
+
+            const newDate: Date = new Date(this.player.birthDate);
+            this.birthDate = {
+              year: newDate.getUTCFullYear(),
+              month: newDate.getUTCMonth() + 1,
+              day: newDate.getUTCDate()
+            } as NgbDateStruct;
           }
           this.loading = false;
         });

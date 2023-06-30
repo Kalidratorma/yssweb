@@ -9,13 +9,15 @@ import {HomeComponent} from "./pages/home";
 import {AlertComponent} from "./pages/alert";
 import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 import {provideAnimations} from "@angular/platform-browser/animations";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,

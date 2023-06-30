@@ -1,43 +1,51 @@
-import {Component, Input} from '@angular/core';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import {MomentDateAdapter} from "@angular/material-moment-adapter";
+import {Component, Injectable, Input} from '@angular/core';
+import {NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
-// // Depending on whether rollup is used, moment needs to be imported differently.
-// // Since Moment.js doesn't have a default export, we normally need to import using the `* as`
-// // syntax. However, rollup creates a synthetic default module and we thus need to import it using
-// // the `default as` syntax.
-// import * as _moment from 'moment';
-// import {default as _rollupMoment} from 'moment';
-// const moment = _rollupMoment || _moment;
-
-// See the Moment.js docs for the meaning of these formats:
-// https://momentjs.com/docs/#/displaying/format/
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'LL',
+const I18N_VALUES = {
+  ru: {
+    weekdays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+    months: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ною', 'Дек'],
+    weekLabel: 'sem',
   },
-  display: {
-    dateInput: 'LL',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
+  // other languages you would support
 };
 
-/** @title Datepicker with custom formats */
+// Define a service holding the language. You probably already have one if your app is i18ned. Or you could also
+// use the Angular LOCALE_ID value
+@Injectable()
+export class I18n {
+  language = 'ru';
+}
+
+// Define custom service providing the months and weekdays translations
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+  constructor(private _i18n: I18n) {
+    super();
+  }
+
+  getWeekdayLabel(weekday: number): string {
+    return I18N_VALUES.ru.weekdays[weekday - 1];
+  }
+  override getWeekLabel(): string {
+    return I18N_VALUES.ru.weekLabel;
+  }
+  getMonthShortName(month: number): string {
+    return I18N_VALUES.ru.months[month - 1];
+  }
+  getMonthFullName(month: number): string {
+    return this.getMonthShortName(month);
+  }
+  getDayAriaLabel(date: NgbDateStruct): string {
+    return `${date.day}-${date.month}-${date.year}`;
+  }
+}
+
 @Component({
   selector: 'datepicker',
   templateUrl: 'datepicker-component.html',
-  providers: [
-    // `MomentDateAdapter` can be automatically provided by importing `MomentDateModule` in your
-    // application's root module. We provide it at the component level here, due to limitations of
-    // our example generation script.
-    {provide: MAT_DATE_LOCALE, useValue: 'ru-RU'},
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ],
+  providers: [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class Datepicker {
-  @Input() date: Date = new Date();
+  @Input() model: NgbDateStruct = {} as NgbDateStruct;
 }
