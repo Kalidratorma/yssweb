@@ -11,6 +11,6 @@ export class DateUtility {
   }
 
   static getDateFromNgbDateStruct(ngbDate: NgbDateStruct): Date {
-    return new Date(ngbDate.year, ngbDate.month-1, ngbDate.day);
+    return new Date(ngbDate.year, ngbDate.month-1, ngbDate.day, 3);
   }
 }

@@ -1,9 +1,12 @@
-export interface Contract {
+import {Wrapper} from "./wrapper";
+import {ContractType} from "./contract-type";
+
+export interface Contract extends Wrapper {
   id:                        number;
   contractNumber:            string;
-  contractorContractNumber?: null;
+  contractorContractNumber?: string;
   contractSubject:           string;
-  contractType?:             string;
+  contractType?:             ContractType;
   expDate?:                  Date;
   paymentTerms?:             string;
 }

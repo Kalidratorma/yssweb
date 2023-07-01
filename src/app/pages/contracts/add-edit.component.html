@@ -1,0 +1,56 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Номер договора</label>
+      <input type="text" formControlName="contractNumber" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['contractNumber'].errors }"/>
+      <div *ngIf="submitted && f['contractNumber'].errors" class="invalid-feedback">
+        <div *ngIf="f['contractNumber'].errors?.['required']">Номер договора обязателен</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Номер договора контрагента</label>
+      <input type="text" formControlName="contractorContractNumber" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Предмет договора</label>
+      <input type="text" formControlName="contractSubject" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['contractSubject'].errors }"/>
+      <div *ngIf="submitted && f['contractSubject'].errors" class="invalid-feedback">
+        <div *ngIf="f['contractSubject'].errors?.['required']">Предмет договора обязателен</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Тип договора</label>
+      <select formControlName="contractType" class="form-select">
+        <option value="CLIENT">Клиент</option>
+        <option value="COACH">Тренер</option>
+        <option value="CONTRACTOR">Контрагент</option>
+      </select>
+      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+        <div *ngIf="f['role'].errors?.['required']">Пол обязателен</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Срок действия договора</label>
+      <datepicker [dateStruct]="expDate" (savedDate)="expDate = $event">Загрузка...</datepicker>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Условия оплаты</label>
+      <input type="text" formControlName="paymentTerms" class="form-control"/>
+    </div>
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/parents" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

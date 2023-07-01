@@ -3,7 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {AlertService, ParentService} from '../../services';
+import {AlertService, ContractService} from '../../services';
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility/DateUtility";
 
@@ -16,13 +16,13 @@ export class AddEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
-  birthDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
+  expDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private parentService: ParentService,
+    private contractService: ContractService,
     private alertService: AlertService
   ) {
   }
@@ -33,27 +33,25 @@ export class AddEditComponent implements OnInit {
     // form with validation rules
     this.form = this.formBuilder.group({
       id: [],
-      surname: ['', Validators.required],
-      name: ['', Validators.required],
-      patronymic: [''],
-      birthDate: [null],
-      phoneNumber: ['', Validators.required],
-      sex: [null, Validators.required],
-      user: [null],
-      contracts: [null],
+      contractNumber: ['', Validators.required],
+      contractorContractNumber: [''],
+      contractSubject: ['', Validators.required],
+      contractType: [null],
+      expDate: [null],
+      paymentTerms: [null]
     });
 
-    this.title = 'Добавить родителя';
+    this.title = 'Добавить договор';
     if (this.id) {
       // edit mode
-      this.title = 'Редактировать родителя';
+      this.title = 'Редактировать договор';
       this.loading = true;
-      this.parentService.getById(this.id)
+      this.contractService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
-          if (x.birthDate) {
-            this.birthDate = DateUtility.getNgbDateStructFromDate(x.birthDate);
+          if (x.expDate) {
+            this.expDate = DateUtility.getNgbDateStructFromDate(x.expDate);
           }
           this.loading = false;
         });
@@ -81,8 +79,8 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Родитель сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/parents');
+          this.alertService.success('Договор сохранен', {keepAfterRouteChange: true});
+          this.router.navigateByUrl('/contracts');
         },
         error: error => {
           this.alertService.error(error);
@@ -93,11 +91,11 @@ export class AddEditComponent implements OnInit {
 
   private save() {
 
-    this.form.value.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
+    this.form.value.birthDate = DateUtility.getDateFromNgbDateStruct(this.expDate);
 
     // create or update user based on id param
     return this.id
-      ? this.parentService.update(this.form.value)
-      : this.parentService.create(this.form.value);
+      ? this.contractService.update(this.form.value)
+      : this.contractService.create(this.form.value);
   }
 }

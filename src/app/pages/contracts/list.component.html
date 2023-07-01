@@ -1,0 +1,32 @@
+<h1>Договора</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить договор</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 20%">Номер договора</th>
+    <th style="width: 20%">Тип договора</th>
+    <th style="width: 20%">Срок действия договора</th>
+    <th style="width: 20%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let contract of contracts">
+    <td>{{contract.contractNumber}}</td>
+    <td>{{contract.contractType}}</td>
+    <td>{{contract.expDate | date: "dd.MM.yyyy г."}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{contract.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(contract.id)" class="btn btn-sm btn-danger btn-delete-contract"
+              [disabled]="contract.isDeleting">
+        <span *ngIf="contract.isDeleting" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!contract.isDeleting">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!contracts">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

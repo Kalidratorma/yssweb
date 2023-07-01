@@ -9,6 +9,7 @@ const gameFormatModule = () => import('./pages/formats/game-format.module').then
 const playersModule = () => import('./pages/players/players.module').then(x => x.PlayersModule);
 const positionsModule = () => import('./pages/positions/positions.module').then(x => x.PositionsModule);
 const parentsModule = () => import('./pages/parents/parents.module').then(x => x.ParentsModule);
+const contractsModule = () => import('./pages/contracts/contracts.module').then(x => x.ContractsModule);
 
 
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'players', loadChildren: playersModule },
   { path: 'positions', loadChildren: positionsModule },
   { path: 'parents', loadChildren: parentsModule },
+  { path: 'contracts', loadChildren: contractsModule },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

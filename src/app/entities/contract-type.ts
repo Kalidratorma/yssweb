@@ -1,5 +1,5 @@
 export enum ContractType {
-    CLIENT,
-    COACH,
-    CONTRACTOR
+    CLIENT = "Клиент",
+    COACH = "Тренер",
+    CONTRACTOR = "Контрагент"
 }
