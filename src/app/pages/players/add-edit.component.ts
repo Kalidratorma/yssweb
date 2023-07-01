@@ -2,13 +2,14 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 
-import {AlertService, PlayerService} from '../../services';
+import {AlertService, PlayerService, PositionService} from '../../services';
 import {Player} from "../../entities/player";
 import {GripType} from "../../entities/grip-type";
 import {Physiology} from "../../entities/physiology";
 import {throwError} from "rxjs";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility/DateUtility";
+import {Position} from "../../entities/position";
 
 @Component({
   selector: 'player-details',
@@ -33,12 +34,21 @@ export class AddEditComponent implements OnInit {
 
   birthDate: NgbDateStruct = {} as NgbDateStruct;
 
+  positions: Position[] = [];
+  selectedPosition?: Position;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private playerService: PlayerService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private positionService: PositionService
   ) {
+    this.positionService.getAll()
+      .pipe(first())
+      .subscribe(x => {
+        this.positions = x;
+      });
   }
 
   ngOnInit() {

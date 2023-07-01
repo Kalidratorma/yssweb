@@ -48,7 +48,10 @@
       </div>
       <div class="mb-3 col">
         <label class="form-label">Амплуа/позиция</label>
-        <input type="text" [ngModel]="player.position?.name" name="position" class="form-control"/>
+<!--        <input type="text" [ngModel]="player.position?.name" name="position" class="form-control"/>-->
+        <select [(ngModel)]="player.position" class="form-select" name="position">
+          <option *ngFor="let position of positions" [ngValue]="position">{{position.name}}</option>
+        </select>
       </div>
     </div>
     <div class="row">
