@@ -96,12 +96,14 @@ export class AddEditComponent implements OnInit {
     if (this.player == null) {
       return throwError(() => "Ошибка обработки. Невозможно сохранить!");
     }
-    if (this.player.physiologyList != null &&
-      (this.savedHeight != this.height ||
+
+    if (this.player.physiologyList == null) {
+      this.player.physiologyList = [];
+    }
+    if (this.savedHeight != this.height ||
         this.savedWeight != this.weight ||
-        this.savedGrip != this.grip)
-    ) {
-      this.player.physiologyList?.push(new Physiology(this.height!, this.weight!, this.grip!))
+        this.savedGrip != this.grip) {
+      this.player.physiologyList.push(new Physiology(this.height!, this.weight!, this.grip!))
     }
 
     this.player.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
