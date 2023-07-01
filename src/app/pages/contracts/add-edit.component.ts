@@ -91,7 +91,7 @@ export class AddEditComponent implements OnInit {
 
   private save() {
 
-    this.form.value.birthDate = DateUtility.getDateFromNgbDateStruct(this.expDate);
+    this.form.value.expDate = DateUtility.getDateFromNgbDateStruct(this.expDate);
 
     // create or update user based on id param
     return this.id
