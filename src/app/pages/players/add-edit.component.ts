@@ -53,7 +53,8 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.player = x;
-          if (this.player.physiologyList != null) {
+          this.birthDate = DateUtility.getNgbDateStructFromDate(this.player.birthDate);
+          if (this.player.physiologyList != null && this.player.physiologyList.length > 0) {
             let listLength = this.player.physiologyList.length - 1;
             this.height = this.player.physiologyList[listLength].height;
             this.weight = this.player.physiologyList[listLength].weight;
@@ -63,7 +64,6 @@ export class AddEditComponent implements OnInit {
             this.savedWeight = this.weight;
             this.savedGrip = this.grip;
 
-            this.birthDate = DateUtility.getNgbDateStructFromDate(this.player.birthDate);
           }
           this.loading = false;
         });
