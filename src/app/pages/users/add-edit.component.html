@@ -6,46 +6,46 @@
       <input type="text" formControlName="email" class="form-control"
              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"/>
       <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-        <div *ngIf="f['email'].errors?.['required']">Email is required</div>
+        <div *ngIf="f['email'].errors?.['required']">E-mail обязателен</div>
       </div>
     </div>
     <div class="mb-3 col">
-      <label class="form-label">Role</label>
+      <label class="form-label">Роль</label>
       <input type="text" formControlName="role" class="form-control"
              [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"/>
       <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
-        <div *ngIf="f['role'].errors?.['required']">Role is required</div>
+        <div *ngIf="f['role'].errors?.['required']">Роль обязательна</div>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="mb-3 col">
-      <label class="form-label">Username</label>
+      <label class="form-label">Имя пользователя</label>
       <input type="text" formControlName="username" class="form-control"
              [ngClass]="{ 'is-invalid': submitted && f['username'].errors }"/>
       <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
-        <div *ngIf="f['username'].errors?.['required']">Username is required</div>
+        <div *ngIf="f['username'].errors?.['required']">Имя пользователя обязательно</div>
       </div>
     </div>
     <div class="mb-3 col">
       <label class="form-label">
-        Password
-        <em *ngIf="username">(Leave blank to keep the same password)</em>
+        Пароль
+        <em *ngIf="username">(Оставьте поле пустым, чтобы сохранить старый пароль)</em>
       </label>
       <input type="password" formControlName="password" class="form-control"
              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"/>
       <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-        <div *ngIf="f['password'].errors?.['required']">Password is required</div>
-        <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 6 characters</div>
+        <div *ngIf="f['password'].errors?.['required']">Пароль обязателен</div>
+        <div *ngIf="f['password'].errors?.['minlength']">Минимум 6 символов должно быть в пароле</div>
       </div>
     </div>
   </div>
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary">
       <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
-      Save
+      Сохранить
     </button>
-    <a routerLink="/users" class="btn btn-link">Cancel</a>
+    <a routerLink="/users" class="btn btn-link">Отмена</a>
   </div>
 </form>
 <div *ngIf="loading" class="text-center m-5">

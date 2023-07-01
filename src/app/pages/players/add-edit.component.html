@@ -23,7 +23,7 @@
     <div class="row">
       <div class="mb-3 col">
         <label class="form-label">Дата рождения</label>
-        <datepicker [model]="birthDate">Загрузка...</datepicker>
+        <datepicker [dateStruct]="birthDate" (savedDate)="birthDate = $event">Загрузка...</datepicker>
       </div>
       <div class="mb-3 col">
         <label class="form-label">Родители</label>
@@ -89,7 +89,7 @@
         <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
         Save
       </button>
-      <a routerLink="/players" class="btn btn-link">Cancel</a>
+      <a routerLink="/players" class="btn btn-link">Отмена</a>
     </div>
 
   </form>

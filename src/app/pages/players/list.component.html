@@ -20,7 +20,7 @@
                 <a routerLink="edit/{{player.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
                 <button (click)="deletePlayer(player.id)" class="btn btn-sm btn-danger btn-delete-player" [disabled]="player.isDeleting">
                     <span *ngIf="player.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!player.isDeleting">Delete</span>
+                    <span *ngIf="!player.isDeleting">Удалить</span>
                 </button>
             </td>
         </tr>

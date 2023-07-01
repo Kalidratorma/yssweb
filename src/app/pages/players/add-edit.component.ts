@@ -8,6 +8,7 @@ import {GripType} from "../../entities/grip-type";
 import {Physiology} from "../../entities/physiology";
 import {throwError} from "rxjs";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {DateUtility} from "../../utility/DateUtility";
 
 @Component({
   selector: 'player-details',
@@ -62,12 +63,7 @@ export class AddEditComponent implements OnInit {
             this.savedWeight = this.weight;
             this.savedGrip = this.grip;
 
-            const newDate: Date = new Date(this.player.birthDate);
-            this.birthDate = {
-              year: newDate.getUTCFullYear(),
-              month: newDate.getUTCMonth() + 1,
-              day: newDate.getUTCDate()
-            } as NgbDateStruct;
+            this.birthDate = DateUtility.getNgbDateStructFromDate(this.player.birthDate);
           }
           this.loading = false;
         });
@@ -105,6 +101,8 @@ export class AddEditComponent implements OnInit {
     ) {
       this.player.physiologyList?.push(new Physiology(this.height!, this.weight!, this.grip!))
     }
+
+    this.player.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
 
     if (this.player.id != null) {
       return this.playerService.update(this.player);

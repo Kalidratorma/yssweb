@@ -1,8 +1,8 @@
 export interface Contract {
-  id?:                       number;
-  contractNumber?:           string;
+  id:                        number;
+  contractNumber:            string;
   contractorContractNumber?: null;
-  contractSubject?:          string;
+  contractSubject:           string;
   contractType?:             string;
   expDate?:                  Date;
   paymentTerms?:             string;

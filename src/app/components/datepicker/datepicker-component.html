@@ -1,15 +1,14 @@
 <form class="row row-cols-sm-auto">
-  <div class="col-12">
     <div class="input-group">
       <input
         class="form-control"
         placeholder="dd.MM.yyyy г."
         name="dp"
-        [(ngModel)]="model"
+        [(ngModel)]="dateStruct"
+        (ngModelChange)="onSave($event)"
         ngbDatepicker
         #d="ngbDatepicker"
       />
       <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
     </div>
-  </div>
 </form>

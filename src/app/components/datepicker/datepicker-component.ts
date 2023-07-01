@@ -1,4 +1,4 @@
-import {Component, Injectable, Input} from '@angular/core';
+import {Component, EventEmitter, Injectable, Input, Output} from '@angular/core';
 import {NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 const I18N_VALUES = {
@@ -47,5 +47,10 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
   providers: [I18n, { provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n }]
 })
 export class Datepicker {
-  @Input() model: NgbDateStruct = {} as NgbDateStruct;
+  @Input() dateStruct: NgbDateStruct = {} as NgbDateStruct;
+  @Output() savedDate =  new EventEmitter<NgbDateStruct>;
+
+  onSave(event: NgbDateStruct) {
+    this.savedDate.emit(event);
+  }
 }

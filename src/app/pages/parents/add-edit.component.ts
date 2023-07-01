@@ -3,49 +3,58 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {AccountService, AlertService} from '../../services';
+import {AlertService, ParentService} from '../../services';
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {DateUtility} from "../../utility/DateUtility";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
   form!: FormGroup;
   id?: number;
-  username?: string;
   title!: string;
   loading = false;
   submitting = false;
   submitted = false;
 
+  birthDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private accountService: AccountService,
+    private accountService: ParentService,
     private alertService: AlertService
   ) {
   }
 
   ngOnInit() {
-    // this.id = this.route.snapshot.params['id'];
-    this.username = this.route.snapshot.params['username'];
+    this.id = this.route.snapshot.params['id'];
 
     // form with validation rules
     this.form = this.formBuilder.group({
-      email: ['', Validators.required],
-      role: ['', Validators.required],
-      username: ['', Validators.required],
-      // password only required in add mode
-      password: ['', [Validators.minLength(6), ...(!this.username ? [Validators.required] : [])]]
+      id: [],
+      surname: ['', Validators.required],
+      name: ['', Validators.required],
+      patronymic: [''],
+      birthDate: [null],
+      phoneNumber: ['', Validators.required],
+      sex: [null, Validators.required],
+      user: [null],
+      contracts: [null],
     });
 
-    this.title = 'Добавить пользователя';
-    if (this.username) {
+    this.title = 'Добавить родителя';
+    if (this.id) {
       // edit mode
-      this.title = 'Редактировать пользователя';
+      this.title = 'Редактировать родителя';
       this.loading = true;
-      this.accountService.getByUsername(this.username)
+      this.accountService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
+          if (x.birthDate) {
+            this.birthDate = DateUtility.getNgbDateStructFromDate(x.birthDate);
+          }
           this.loading = false;
         });
     }
@@ -68,12 +77,12 @@ export class AddEditComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.saveUser()
+    this.save()
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Пользователь сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/users');
+          this.alertService.success('Родитель сохранен', {keepAfterRouteChange: true});
+          this.router.navigateByUrl('/parents');
         },
         error: error => {
           this.alertService.error(error);
@@ -82,10 +91,13 @@ export class AddEditComponent implements OnInit {
       })
   }
 
-  private saveUser() {
+  private save() {
+
+    this.form.value.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
+
     // create or update user based on id param
-    return this.username
-      ? this.accountService.update(this.username!, this.form.value)
-      : this.accountService.register(this.form.value);
+    return this.id
+      ? this.accountService.update(this.form.value)
+      : this.accountService.create(this.form.value);
   }
 }

@@ -1,11 +1,11 @@
-<h1>Users</h1>
-<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+<h1>Пользователи</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить пользователя</a>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th style="width: 30%">Username</th>
-            <th style="width: 30%">Role</th>
-            <th style="width: 30%">email</th>
+            <th style="width: 30%">Имя пользователя</th>
+            <th style="width: 30%">Роль</th>
+            <th style="width: 30%">E-mail</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
@@ -15,10 +15,10 @@
             <td>{{user.role}}</td>
             <td>{{user.email}}</td>
             <td style="white-space: nowrap">
-                <a routerLink="edit/{{user.username}}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <a routerLink="edit/{{user.username}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
                 <button (click)="deleteUser(user.username)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
                     <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Delete</span>
+                    <span *ngIf="!user.isDeleting">Удалить</span>
                 </button>
             </td>
         </tr>

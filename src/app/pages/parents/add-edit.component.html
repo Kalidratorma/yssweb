@@ -1,0 +1,68 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Фамилия</label>
+      <input type="text" formControlName="surname" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['surname'].errors }"/>
+      <div *ngIf="submitted && f['surname'].errors" class="invalid-feedback">
+        <div *ngIf="f['surname'].errors?.['required']">Фамилия обязательна</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Имя</label>
+      <input type="text" formControlName="name" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"/>
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors?.['required']">Имя обязательно</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Фамилия</label>
+      <input type="text" formControlName="patronymic" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Дата рождения</label>
+      <datepicker [dateStruct]="birthDate" (savedDate)="birthDate = $event">Загрузка...</datepicker>
+<!--      <input type="text" formControlName="role" class="form-control"-->
+<!--             [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"/>-->
+<!--      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">-->
+<!--        <div *ngIf="f['role'].errors?.['required']">Role is required</div>-->
+<!--      </div>-->
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Номер телефона</label>
+      <input type="text" formControlName="phoneNumber" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"/>
+      <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
+        <div *ngIf="f['phoneNumber'].errors?.['required']">Номер телефона обязателен</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Пол</label>
+      <select formControlName="sex" class="form-select">
+        <option value="MALE">Мужской</option>
+        <option value="FEMALE">Женский</option>
+      </select>
+      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+        <div *ngIf="f['role'].errors?.['required']">Пол обязателен</div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <a routerLink="../contracts/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Договора</a>
+    <a routerLink="../players/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Спортсмены</a>
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/parents" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

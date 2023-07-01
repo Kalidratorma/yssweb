@@ -8,6 +8,7 @@ const usersModule = () => import('./pages/users/users.module').then(x => x.Users
 const gameFormatModule = () => import('./pages/formats/game-format.module').then(x => x.GameFormatModule);
 const playersModule = () => import('./pages/players/players.module').then(x => x.PlayersModule);
 const positionsModule = () => import('./pages/positions/positions.module').then(x => x.PositionsModule);
+const parentsModule = () => import('./pages/parents/parents.module').then(x => x.ParentsModule);
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'gameFormats', loadChildren: gameFormatModule },
   { path: 'players', loadChildren: playersModule },
   { path: 'positions', loadChildren: positionsModule },
+  { path: 'parents', loadChildren: parentsModule },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }
