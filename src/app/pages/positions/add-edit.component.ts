@@ -3,14 +3,12 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {GameFormatService, AlertService} from '../../services';
-import {IceType} from "../../entities/ice-type";
+import {AlertService, PositionService} from '../../services';
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
   form!: FormGroup;
   id?: number;
-  name?: string;
   title!: string;
   loading = false;
   submitting = false;
@@ -20,7 +18,7 @@ export class AddEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private gameFormatService: GameFormatService,
+    private positionService: PositionService,
     private alertService: AlertService
   ) {
   }
@@ -31,18 +29,16 @@ export class AddEditComponent implements OnInit {
     // form with validation rules
     this.form = this.formBuilder.group({
       id: [],
-      name: ['', Validators.required],
-      isCommercial: [false, Validators.required],
-      iceType: [IceType.HALF, Validators.required],
-      numberOfPlayers: [4, Validators.required]
+      shortName: ['', Validators.required],
+      name: ['', Validators.required]
     });
 
-    this.title = 'Добавить формат';
+    this.title = 'Добавить амплуа';
     if (this.id) {
       // edit mode
-      this.title = 'Редактировать формат';
+      this.title = 'Редактировать амплуа';
       this.loading = true;
-      this.gameFormatService.getByGameFormatId(this.id)
+      this.positionService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
@@ -68,12 +64,12 @@ export class AddEditComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.saveGameFormat()
+    this.saveUser()
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Формат игры сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/gameFormat');
+          this.alertService.success('Амплуа сохранено', {keepAfterRouteChange: true});
+          this.router.navigateByUrl('/positions');
         },
         error: error => {
           this.alertService.error(error);
@@ -82,10 +78,10 @@ export class AddEditComponent implements OnInit {
       })
   }
 
-  private saveGameFormat() {
+  private saveUser() {
     // create or update user based on id param
-    return this.name
-      ? this.gameFormatService.update(this.form.value)
-      : this.gameFormatService.create(this.form.value);
+    return this.id
+      ? this.positionService.update(this.form.value)
+      : this.positionService.create(this.form.value);
   }
 }

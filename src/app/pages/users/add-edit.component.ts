@@ -37,10 +37,10 @@ export class AddEditComponent implements OnInit {
       password: ['', [Validators.minLength(6), ...(!this.username ? [Validators.required] : [])]]
     });
 
-    this.title = 'Add User';
+    this.title = 'Добавить пользователя';
     if (this.username) {
       // edit mode
-      this.title = 'Edit User';
+      this.title = 'Редактировать пользователя';
       this.loading = true;
       this.accountService.getByUsername(this.username)
         .pipe(first())
