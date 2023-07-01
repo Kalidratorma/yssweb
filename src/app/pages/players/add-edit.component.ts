@@ -67,6 +67,8 @@ export class AddEditComponent implements OnInit {
           }
           this.loading = false;
         });
+    } else {
+      this.player = {} as Player;
     }
   }
 

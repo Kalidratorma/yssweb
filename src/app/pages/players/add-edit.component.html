@@ -26,44 +26,35 @@
         <datepicker [dateStruct]="birthDate" (savedDate)="birthDate = $event">Загрузка...</datepicker>
       </div>
       <div class="mb-3 col">
-        <label class="form-label">Родители</label>
-        <input type="text" [(ngModel)]="player.parents" name="parents" class="form-control"/>
-      </div>
-      <div class="mb-3 col">
         <label class="form-label">Пол</label>
         <select [(ngModel)]="player.sex" class="form-select" name="sex">
           <option value="MALE">Мужской</option>
           <option value="FEMALE">Женский</option>
         </select>
       </div>
-    </div>
-    <div class="row">
       <div class="mb-3 col">
         <label class="form-label">Ограничения</label>
         <input type="text" [(ngModel)]="player.restrictions" name="restrictions" class="form-control"/>
       </div>
+    </div>
+    <div class="row">
       <div class="mb-3 col">
         <label class="form-label">Игровой номер</label>
         <input type="text" [(ngModel)]="player.number" name="number" class="form-control"/>
       </div>
       <div class="mb-3 col">
         <label class="form-label">Год команды</label>
-        <input type="text" [(ngModel)]="player.parents" name="parents" class="form-control"/>
+        <input type="text" [(ngModel)]="player.teamYear" name="teamYear" class="form-control"/>
+      </div>
+      <div class="mb-3 col">
+        <label class="form-label">Амплуа/позиция</label>
+        <input type="text" [ngModel]="player.position?.name" name="position" class="form-control"/>
       </div>
     </div>
-
     <div class="row">
       <div class="mb-3 col">
         <label class="form-label">Фото</label>
         <input type="text" [(ngModel)]="player.photo" name="photo" class="form-control"/>
-      </div>
-      <div class="mb-3 col">
-        <label class="form-label">Амплуа/позиция</label>
-        <input type="text" [(ngModel)]="player.position" name="position" class="form-control"/>
-      </div>
-      <div class="mb-3 col">
-        <label class="form-label">Договор</label>
-        <input type="text" [(ngModel)]="player.contract" name="contract" class="form-control"/>
       </div>
     </div>
     <div class="row">
@@ -83,11 +74,14 @@
         </select>
       </div>
     </div>
-
+    <div class="mb-3">
+      <a routerLink="../contracts/byPlayer/{{id}}" class="btn btn-sm btn-primary me-1">Договора</a>
+      <a routerLink="../players/byPlayer/{{id}}" class="btn btn-sm btn-primary me-1">Родители</a>
+    </div>
     <div class="mb-3">
       <button [disabled]="submitting" class="btn btn-primary">
         <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
-        Save
+        Сохранить
       </button>
       <a routerLink="/players" class="btn btn-link">Отмена</a>
     </div>
