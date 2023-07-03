@@ -1,36 +1,6 @@
 import {Component, EventEmitter, Injectable, Input, Output} from '@angular/core';
 import {NgbDateParserFormatter, NgbDatepickerI18n, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
-
-/**
- * This Service handles how the date is represented in scripts i.e. ngModel.
- */
-// @Injectable()
-// export class CustomAdapter extends NgbDateAdapter<string> {
-//   readonly DELIMITER = '.';
-//
-//   fromModel(value: string | null): NgbDateStruct | null {
-//     if (value) {
-//       const date = value.split(this.DELIMITER);
-//       return {
-//         day: parseInt(date[0], 10),
-//         month: parseInt(date[1], 10),
-//         year: parseInt(date[2], 10),
-//       };
-//     }
-//     return null;
-//   }
-
-  // toModel(date: NgbDateStruct | null): string | null {
-  //   return date;
-  //     // ? (date.day < 10 ? '0' + date.day : date.day) +
-  //     // this.DELIMITER +
-  //     // (date.month < 10 ? '0' + date.month : date.month) +
-  //     // this.DELIMITER +
-  //     // date.year : null;
-  // }
-//}
-
 /**
  * This Service handles how the date is rendered and parsed from keyboard i.e. in the bound input field.
  */
@@ -114,6 +84,9 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 export class Datepicker {
   @Input() dateStruct: NgbDateStruct = {} as NgbDateStruct;
   @Output() savedDate = new EventEmitter<NgbDateStruct>;
+
+  readonly minDate: NgbDateStruct = {year:1920, month: 1, day: 1} as NgbDateStruct;
+  readonly maxDate: NgbDateStruct = {year:2030, month: 1, day: 1} as NgbDateStruct;
 
   onSave(event: NgbDateStruct) {
     this.savedDate.emit(event);

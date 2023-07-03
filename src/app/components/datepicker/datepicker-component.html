@@ -7,6 +7,8 @@
         [(ngModel)]="dateStruct"
         (ngModelChange)="onSave($event)"
         ngbDatepicker
+        [minDate]="minDate"
+        [maxDate]="maxDate"
         #dp="ngbDatepicker"
       />
       <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
