@@ -14,9 +14,9 @@
             <td>{{position.name}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{position.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
-                <button (click)="delete(position.id)" class="btn btn-sm btn-danger btn-delete-position" [disabled]="position.isDeleting">
-                    <span *ngIf="position.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!position.isDeleting">Удалить</span>
+                <button (click)="delete(position.id)" class="btn btn-sm btn-danger btn-delete-position" [disabled]="isDeleting[position.id]">
+                    <span *ngIf="isDeleting[position.id]" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isDeleting[position.id]">Удалить</span>
                 </button>
             </td>
         </tr>

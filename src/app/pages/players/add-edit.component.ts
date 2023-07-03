@@ -35,7 +35,6 @@ export class AddEditComponent implements OnInit {
   birthDate: NgbDateStruct = {} as NgbDateStruct;
 
   positions: Position[] = [];
-  selectedPosition?: Position;
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +62,9 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.player = x;
+          if(this.player.position) {
+            this.player.position = this.positions.find(x => x.id == this.player?.position?.id);
+          }
           this.birthDate = DateUtility.getNgbDateStructFromDate(this.player.birthDate);
           if (this.player.physiologyList != null && this.player.physiologyList.length > 0) {
             let listLength = this.player.physiologyList.length - 1;
