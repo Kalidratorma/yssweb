@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {GameFormatService, AlertService} from '../../services';
-import {IceType} from "../../entities/ice-type";
+import {getIceTypeMap, IceType} from "../../entities/ice-type";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -15,6 +15,8 @@ export class AddEditComponent implements OnInit {
   loading = false;
   submitting = false;
   submitted = false;
+
+  iceTypeMap: Map<IceType, string> = getIceTypeMap();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -73,7 +75,7 @@ export class AddEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.alertService.success('Формат игры сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/gameFormat');
+          this.router.navigateByUrl('/gameFormats');
         },
         error: error => {
           this.alertService.error(error);

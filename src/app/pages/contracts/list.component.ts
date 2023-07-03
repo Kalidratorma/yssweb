@@ -15,7 +15,18 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.contractService.getAll()
       .pipe(first())
-      .subscribe(contracts => this.contracts = contracts);
+      .subscribe(contracts => this.contracts = contracts.sort(
+        (a: Contract, b: Contract) => {
+          const contractNumberA = a.contractNumber.toUpperCase();
+          const contractNumberB = b.contractNumber.toUpperCase();
+          const contractTypeA = a.contractType ? a.contractType.toUpperCase() : '';
+          const contractTypeB = b.contractType ? b.contractType.toUpperCase() : '';
+          const expDateA = a.expDate ? a.expDate.toUpperCase() : '';
+          const expDateB = b.expDate ? b.expDate.toUpperCase() : '';
+          return (contractNumberA < contractNumberB) ? -1 : (contractNumberA > contractNumberB) ? 1 :
+            (contractTypeA < contractTypeB) ? -1 : (contractTypeA > contractTypeB) ? 1 :
+              (expDateA < expDateB) ? -1 : (expDateA > expDateB) ? 1 : 0;
+        }));
   }
 
   delete(id: number) {

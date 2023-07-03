@@ -6,15 +6,15 @@
             <th style="width: 30%">Наименование</th>
             <th style="width: 30%">Коммерческая/некоммерческая игра</th>
             <th style="width: 30%">Тип льда</th>
-            <th style="width: 30%">Количество игроков</th>
+            <th style="width: 30%">Количество игроков в команде</th>
             <th style="width: 10%"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let gameFormat of gameFormats">
             <td>{{gameFormat.name}}</td>
-            <td>{{gameFormat.isCommercial}}</td>
-            <td>{{gameFormat.iceType}}</td>
+            <td>{{gameFormat.isCommercial ? "Коммерческая" : "Не коммерческая"}}</td>
+            <td>{{iceTypeMap.get(gameFormat.iceType)}}</td>
             <td>{{gameFormat.numberOfPlayers}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{gameFormat.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>

@@ -15,7 +15,12 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.positionService.getAll()
       .pipe(first())
-      .subscribe(positions => this.positions = positions);
+      .subscribe(positions => this.positions = positions.sort(
+        (a: Position, b: Position) => {
+          const shortNameA = a.shortName.toUpperCase();
+          const shortNameB = b.shortName.toUpperCase();
+          return (shortNameA < shortNameB) ? -1 : (shortNameA > shortNameB) ? 1 : 0;
+        }));
   }
 
   delete(id: number) {

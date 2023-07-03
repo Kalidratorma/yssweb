@@ -14,7 +14,12 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.accountService.getAll()
       .pipe(first())
-      .subscribe(users => this.users = users);
+      .subscribe(users => this.users = users.sort(
+        (a: User, b: User) => {
+          const usernameA = a.username.toUpperCase();
+          const usernameB = b.username.toUpperCase();
+          return (usernameA < usernameB) ? -1 : (usernameA > usernameB) ? 1 : 0;
+        }));
   }
 
   deleteUser(username: string) {

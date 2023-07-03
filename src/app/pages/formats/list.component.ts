@@ -3,11 +3,13 @@ import {first} from 'rxjs/operators';
 
 import {GameFormatService} from '../../services';
 import {GameFormat} from "../../entities/game-format";
+import {getIceTypeMap, IceType} from "../../entities/ice-type";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
   gameFormats?: GameFormat[];
   isDeleting: boolean[] = [];
+  iceTypeMap: Map<IceType, string> = getIceTypeMap();
 
   constructor(private gameFormatService: GameFormatService) {
   }
@@ -15,7 +17,12 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.gameFormatService.getAll()
       .pipe(first())
-      .subscribe(gameFormats => this.gameFormats = gameFormats);
+      .subscribe(gameFormats => this.gameFormats = gameFormats.sort(
+        (a: GameFormat, b: GameFormat) => {
+          const nameA = a.name.toUpperCase();
+          const nameB = b.name.toUpperCase();
+          return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 : 0;
+        }));
   }
 
   delete(id: number) {

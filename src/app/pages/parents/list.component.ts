@@ -15,7 +15,21 @@ export class ListComponent implements OnInit {
   ngOnInit() {
     this.parentService.getAll()
       .pipe(first())
-      .subscribe(parents => this.parents = parents);
+      .subscribe(parents => this.parents = parents.sort(
+        (a: Parent, b: Parent) => {
+          const surnameA = a.surname.toUpperCase();
+          const surnameB = b.surname.toUpperCase();
+          const nameA = a.name.toUpperCase();
+          const nameB = b.name.toUpperCase();
+          const patronymicA = a.patronymic ? a.patronymic.toUpperCase() : '';
+          const patronymicB = b.patronymic ? b.patronymic.toUpperCase() : '';
+          const birthDateA = a.birthDate ? a.birthDate.toUpperCase() : '';
+          const birthDateB = b.birthDate ? b.birthDate.toUpperCase() : '';
+          return (surnameA < surnameB) ? -1 : (surnameA > surnameB) ? 1 :
+            (nameA < nameB) ? -1 : (nameA > nameB) ? 1 :
+              (patronymicA < patronymicB) ? -1 : (patronymicA > patronymicB) ? 1 :
+                (birthDateA < birthDateB) ? -1 : (birthDateA > birthDateB) ? 1 : 0;
+        }));
   }
 
   delete(id: number) {
