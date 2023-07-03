@@ -1,6 +1,6 @@
 export interface Stat {
   id:      number;
-  date:    Date;
+  date:    string;
   goal:    number;
   assist:  number;
   points:  number;

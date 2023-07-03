@@ -6,6 +6,6 @@ export interface Contract {
   contractorContractNumber?: string;
   contractSubject:           string;
   contractType?:             ContractType;
-  expDate?:                  Date;
+  expDate?:                  string;
   paymentTerms?:             string;
 }

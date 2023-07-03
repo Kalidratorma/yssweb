@@ -7,7 +7,7 @@ export interface TaskReport {
   reportDate: Date;
   task: Task;
   player: Player;
-  taskDate: Date;
+  taskDate: string;
   report: String;
   photoLinks: Link[];
   videoLinks: Link[];

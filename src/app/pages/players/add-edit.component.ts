@@ -65,7 +65,12 @@ export class AddEditComponent implements OnInit {
           if(this.player.position) {
             this.player.position = this.positions.find(x => x.id == this.player?.position?.id);
           }
-          this.birthDate = DateUtility.getNgbDateStructFromDate(this.player.birthDate);
+          if (this.player.birthDate) {
+            let eDate = DateUtility.getNgbDateStructFromDbFormat(this.player.birthDate);
+            if (eDate) {
+              this.birthDate = eDate;
+            }
+          }
           if (this.player.physiologyList != null && this.player.physiologyList.length > 0) {
             let listLength = this.player.physiologyList.length - 1;
             this.height = this.player.physiologyList[listLength].height;
@@ -118,7 +123,7 @@ export class AddEditComponent implements OnInit {
       this.player.physiologyList.push(new Physiology(this.height!, this.weight!, this.grip!))
     }
 
-    this.player.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
+    this.player.birthDate = DateUtility.getDbFormatFromNgbDateStruct(this.birthDate);
 
     if (this.player.id != null) {
       return this.playerService.update(this.player);

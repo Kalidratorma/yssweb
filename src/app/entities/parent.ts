@@ -7,7 +7,7 @@ export interface Parent {
   surname:      string;
   name:         string;
   patronymic?:  string;
-  birthDate:    Date;
+  birthDate:    string;
   phoneNumber?: string;
   sex:          Sex;
   user?:        User;

@@ -2,13 +2,13 @@
     <div class="input-group">
       <input
         class="form-control"
-        placeholder="dd.MM.yyyy г."
+        placeholder="dd.MM.yyyy"
         name="dp"
         [(ngModel)]="dateStruct"
         (ngModelChange)="onSave($event)"
         ngbDatepicker
-        #d="ngbDatepicker"
+        #dp="ngbDatepicker"
       />
-      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle()" type="button"></button>
+      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
     </div>
 </form>

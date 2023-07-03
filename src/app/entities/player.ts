@@ -10,7 +10,7 @@ export interface Player {
   surname: string;
   name: string;
   patronymic?: string;
-  birthDate: Date;
+  birthDate: string;
   restrictions?: string;
   parents: Parent[];
   sex: Sex;

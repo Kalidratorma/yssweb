@@ -1,5 +1,3 @@
 export interface JustDate {
-
-
-    date: Date;
+    date: string;
 }

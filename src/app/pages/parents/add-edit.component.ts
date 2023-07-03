@@ -53,7 +53,10 @@ export class AddEditComponent implements OnInit {
         .subscribe(x => {
           this.form.patchValue(x);
           if (x.birthDate) {
-            this.birthDate = DateUtility.getNgbDateStructFromDate(x.birthDate);
+            let eDate = DateUtility.getNgbDateStructFromDbFormat(x.birthDate);
+            if (eDate) {
+              this.birthDate = eDate;
+            }
           }
           this.loading = false;
         });
@@ -93,7 +96,7 @@ export class AddEditComponent implements OnInit {
 
   private save() {
 
-    this.form.value.birthDate = DateUtility.getDateFromNgbDateStruct(this.birthDate);
+    this.form.value.birthDate = DateUtility.getDbFormatFromNgbDateStruct(this.birthDate);
 
     // create or update user based on id param
     return this.id
