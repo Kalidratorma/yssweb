@@ -3,10 +3,9 @@ import {Parent} from "./parent";
 import {Physiology} from "./physiology";
 import {Position} from "./position";
 import {Stat} from "./stat";
-import {Wrapper} from "./wrapper";
 import {Sex} from "./sex";
 
-export interface Player extends Wrapper {
+export interface Player {
   id: number;
   surname: string;
   name: string;

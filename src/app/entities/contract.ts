@@ -1,7 +1,6 @@
-import {Wrapper} from "./wrapper";
 import {ContractType} from "./contract-type";
 
-export interface Contract extends Wrapper {
+export interface Contract {
   id:                        number;
   contractNumber:            string;
   contractorContractNumber?: string;

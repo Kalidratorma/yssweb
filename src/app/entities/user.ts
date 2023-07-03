@@ -1,5 +1,4 @@
-import {Wrapper} from './wrapper';
-export interface User extends Wrapper {
+export interface User {
   id:        number;
   username:  string;
   email:     string;

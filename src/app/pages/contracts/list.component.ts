@@ -7,6 +7,7 @@ import {ContractService} from "../../services";
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
   contracts?: Contract[];
+  isDeleting: boolean[] = [];
 
   constructor(private contractService: ContractService) {
   }
@@ -20,7 +21,7 @@ export class ListComponent implements OnInit {
   delete(id: number) {
     const contract = this.contracts!.find(x => x.id === id);
     if(contract) {
-      contract.isDeleting = true;
+      this.isDeleting[contract.id] = true;
       this.contractService.delete(id)
         .pipe(first())
         .subscribe(() => this.contracts = this.contracts!.filter(x => x.id !== id));

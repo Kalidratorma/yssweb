@@ -7,6 +7,7 @@ import {ParentService} from "../../services";
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
   parents?: Parent[];
+  isDeleting: boolean[] = [];
 
   constructor(private parentService: ParentService) {
   }
@@ -20,7 +21,7 @@ export class ListComponent implements OnInit {
   delete(id: number) {
     const parent = this.parents!.find(x => x.id === id);
     if(parent) {
-      parent.isDeleting = true;
+      this.isDeleting[parent.id] = true;
       this.parentService.delete(id)
         .pipe(first())
         .subscribe(() => this.parents = this.parents!.filter(x => x.id !== id));

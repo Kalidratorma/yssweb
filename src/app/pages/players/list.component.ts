@@ -9,6 +9,7 @@ import {Player} from "../../entities/player";
   templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
   players?: Player[];
+  isDeleting: boolean[] = [];
 
   constructor(private playerService: PlayerService) {
   }
@@ -22,7 +23,7 @@ export class ListComponent implements OnInit {
   deletePlayer(id: number) {
     const player = this.players!.find(x => x.id === id);
     if (player) {
-      player.isDeleting = true;
+      this.isDeleting[player.id] = true;
       this.playerService.delete(id)
         .pipe(first())
         .subscribe(() => this.players = this.players!.filter(x => x.id !== id));

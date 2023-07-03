@@ -16,9 +16,9 @@
             <td>{{user.email}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{user.username}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
-                <button (click)="deleteUser(user.username)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isDeleting">
-                    <span *ngIf="user.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!user.isDeleting">Удалить</span>
+                <button (click)="deleteUser(user.username)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="isDeleting[user.id]">
+                    <span *ngIf="isDeleting[user.id]" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isDeleting[user.id]">Удалить</span>
                 </button>
             </td>
         </tr>

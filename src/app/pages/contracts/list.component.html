@@ -17,9 +17,9 @@
     <td style="white-space: nowrap">
       <a routerLink="edit/{{contract.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
       <button (click)="delete(contract.id)" class="btn btn-sm btn-danger btn-delete-contract"
-              [disabled]="contract.isDeleting">
-        <span *ngIf="contract.isDeleting" class="spinner-border spinner-border-sm"></span>
-        <span *ngIf="!contract.isDeleting">Удалить</span>
+              [disabled]="isDeleting[contract.id]">
+        <span *ngIf="isDeleting[contract.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[contract.id]">Удалить</span>
       </button>
     </td>
   </tr>

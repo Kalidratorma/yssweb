@@ -1,25 +1,30 @@
-import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {first} from 'rxjs/operators';
 
-import { GameFormatService } from '../../services';
+import {GameFormatService} from '../../services';
+import {GameFormat} from "../../entities/game-format";
 
-@Component({ templateUrl: 'list.component.html' })
+@Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
-    gameFormats?: any[];
+  gameFormats?: GameFormat[];
+  isDeleting: boolean[] = [];
 
-    constructor(private gameFormatService: GameFormatService) {}
+  constructor(private gameFormatService: GameFormatService) {
+  }
 
-    ngOnInit() {
-        this.gameFormatService.getAll()
-            .pipe(first())
-            .subscribe(gameFormats => this.gameFormats = gameFormats);
+  ngOnInit() {
+    this.gameFormatService.getAll()
+      .pipe(first())
+      .subscribe(gameFormats => this.gameFormats = gameFormats);
+  }
+
+  delete(id: number) {
+    const gameFormat = this.gameFormats!.find(x => x.id === id);
+    if (gameFormat) {
+      this.isDeleting[gameFormat.id] = true;
+      this.gameFormatService.delete(id)
+        .pipe(first())
+        .subscribe(() => this.gameFormats = this.gameFormats!.filter(x => x.id !== id));
     }
-
-    deleteGameFormat(id: number) {
-        const user = this.gameFormats!.find(x => x.id === id);
-        user.isDeleting = true;
-        this.gameFormatService.delete(id)
-            .pipe(first())
-            .subscribe(() => this.gameFormats = this.gameFormats!.filter(x => x.id !== id));
-    }
+  }
 }

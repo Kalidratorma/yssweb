@@ -18,9 +18,9 @@
             <td>{{player.birthDate | date: "dd.MM.yyyy г."}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{player.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
-                <button (click)="deletePlayer(player.id)" class="btn btn-sm btn-danger btn-delete-player" [disabled]="player.isDeleting">
-                    <span *ngIf="player.isDeleting" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!player.isDeleting">Удалить</span>
+                <button (click)="deletePlayer(player.id)" class="btn btn-sm btn-danger btn-delete-player" [disabled]="isDeleting[player.id]">
+                    <span *ngIf="isDeleting[player.id]" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isDeleting[player.id]">Удалить</span>
                 </button>
             </td>
         </tr>

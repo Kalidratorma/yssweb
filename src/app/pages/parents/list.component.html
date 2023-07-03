@@ -21,9 +21,9 @@
     <td style="white-space: nowrap">
       <a routerLink="edit/{{parent.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
       <button (click)="delete(parent.id)" class="btn btn-sm btn-danger btn-delete-parent"
-              [disabled]="parent.isDeleting">
-        <span *ngIf="parent.isDeleting" class="spinner-border spinner-border-sm"></span>
-        <span *ngIf="!parent.isDeleting">Удалить</span>
+              [disabled]="isDeleting[parent.id]">
+        <span *ngIf="isDeleting[parent.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[parent.id]">Удалить</span>
       </button>
     </td>
   </tr>
