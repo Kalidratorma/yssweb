@@ -5,3 +5,4 @@ export * from './player.service';
 export * from './position.service';
 export * from './parent.service';
 export * from './contract.service';
+export * from './team-year.service';
