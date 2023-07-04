@@ -4,6 +4,7 @@ import {User} from "../entities/user";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Role} from "../entities/role";
 
 @Injectable({
   providedIn: 'root'
@@ -27,10 +28,14 @@ export class AccountService {
   login(username: string, password: string) {
     return this.http.post<User>(`${environment.apiUrl}/auth/enter`, { username, password })
       .pipe(map(user => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        localStorage.setItem('user', JSON.stringify(user));
-        this.userSubject.next(user);
-        return user;
+        if(Role.ADMIN == user.role) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('user', JSON.stringify(user));
+          this.userSubject.next(user);
+          return user;
+        } else {
+          throw new Error("Доступ разрешен только Администраторам")
+        }
       }));
   }
 
