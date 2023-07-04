@@ -1,8 +1,35 @@
+/**
+ * Пользователь
+ */
 export interface User {
-  id:        number;
-  username:  string;
-  email:     string;
-  enabled?:  boolean;
-  role?:     string;
-  token?:    string;
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Имя пользователя
+   */
+  username: string;
+
+  /**
+   * Почта
+   */
+  email: string;
+
+  /**
+   * Признак активности учётной записи
+   */
+  enabled?: boolean;
+
+  /**
+   * Роль
+   */
+  role?: string;
+
+  /**
+   * JWT токен
+   */
+  token?: string;
 }

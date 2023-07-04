@@ -1,15 +1,31 @@
 import {Contract} from "./contract";
 import {User} from "./user";
+import {Person} from "./person";
 
-export interface Coach {
-  id:          number;
-  surname:     string;
-  name:        string;
-  patronymic:  string;
-  phoneNumber: string;
-  sex:         string;
-  education:   string;
-  contract:    Contract;
-  coachType:   string;
-  user:        User;
+export interface Coach extends Person {
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Образование
+   */
+  education: string;
+
+  /**
+   * Договор
+   */
+  contract: Contract;
+
+  /**
+   * Тип тренера
+   */
+  coachType: string;
+
+  /**
+   * Пользователь
+   */
+  user: User;
 }

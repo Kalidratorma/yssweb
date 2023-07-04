@@ -1,15 +1,22 @@
 import {Player} from "./player";
 
+/**
+ * Игровое Звено
+ */
 export interface Unit {
-    id: number;
 
-    /**
-     * Номер состава
-     */
-    unitNumber: number;
+  /**
+   * Идентификатор
+   */
+  id: number;
 
-    /**
-     * Список игроков в звене
-     */
-    playerList: Player[];
+  /**
+   * Номер состава
+   */
+  unitNumber: number;
+
+  /**
+   * Список игроков в звене
+   */
+  playerList: Player[];
 }

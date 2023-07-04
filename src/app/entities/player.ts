@@ -3,22 +3,55 @@ import {Parent} from "./parent";
 import {Physiology} from "./physiology";
 import {Position} from "./position";
 import {Stat} from "./stat";
-import {Sex} from "./sex";
+import {Person} from "./person";
 
-export interface Player {
+/**
+ * Спортсмен
+ */
+export interface Player extends Person {
+
+  /**
+   * Идентификатор
+   */
   id: number;
-  surname: string;
-  name: string;
-  patronymic?: string;
-  birthDate: string;
+
+  /**
+   * Ограничения
+   */
   restrictions?: string;
+
+  /**
+   * Родители
+   */
   parents: Parent[];
-  sex: Sex;
+
+  /**
+   * Игровой номер
+   */
   number?: number;
+
+  /**
+   * Год команды
+   */
   teamYear?: number;
-  photo?: string;
+
+  /**
+   * Амплуа/позиция
+   */
   position?: Position;
+
+  /**
+   * Договора
+   */
   contract?: Contract;
+
+  /**
+   * Физиология
+   */
   physiologyList?: Physiology[];
+
+  /**
+   * Статистика
+   */
   stats?: Stat[];
 }

@@ -2,37 +2,43 @@ import {GameFormat} from "./game-format";
 import {Composition} from "./composition";
 import {Coach} from "./coach";
 
+/**
+ * Команда
+ */
 export interface Team {
 
-    id: number;
+  /**
+   * Идентификатор
+   */
+  id: number;
 
-    /**
-     * Название команды
-     */
-    name: String;
+  /**
+   * Название команды
+   */
+  name: String;
 
-    /**
-     * Год команды
-     */
-    teamYear: number;
+  /**
+   * Год команды
+   */
+  teamYear: number;
 
-    /**
-     * Формат игры
-     */
-    gameFormat: GameFormat;
+  /**
+   * Формат игры
+   */
+  gameFormat: GameFormat;
 
-    /**
-     * Главный тренер
-     */
-    headCoach: Coach;
+  /**
+   * Главный тренер
+   */
+  headCoach: Coach;
 
-    /**
-     * Помощник главного тренера
-     */
-    assistantCoach: Coach;
+  /**
+   * Помощник главного тренера
+   */
+  assistantCoach: Coach;
 
-    /**
-     * Состав
-     */
-    unitList: Composition[];
+  /**
+   * Состав
+   */
+  unitList: Composition[];
 }

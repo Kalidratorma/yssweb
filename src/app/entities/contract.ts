@@ -1,11 +1,42 @@
 import {ContractType} from "./contract-type";
 
+/**
+ * Договор
+ */
 export interface Contract {
-  id:                        number;
-  contractNumber:            string;
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Номер договора
+   */
+  contractNumber: string;
+
+  /**
+   * Номер договора контрагента
+   */
   contractorContractNumber?: string;
-  contractSubject:           string;
-  contractType?:             ContractType;
-  expDate?:                  string;
-  paymentTerms?:             string;
+
+  /**
+   * Предмет договора
+   */
+  contractSubject: string;
+
+  /**
+   * Тип договора
+   */
+  contractType?: ContractType;
+
+  /**
+   * Срок действия договора
+   */
+  expDate?: string;
+
+  /**
+   * Условия оплаты
+   */
+  paymentTerms?: string;
 }

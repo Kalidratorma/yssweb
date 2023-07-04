@@ -23,13 +23,17 @@ export enum IceType {
   CROSS="CROSS"
 }
 
+/**
+ * Возвращает отображение содержащее
+ * весь набор значений перечисления
+ */
 export function getIceTypeMap(): Map<IceType, string> {
-  let newMap = new Map<IceType, string>;
+  let map = new Map<IceType, string>();
 
-  newMap.set(IceType.FULL, "Весь лёд");
-  newMap.set(IceType.HALF, "Половина льда");
-  newMap.set(IceType.QUARTER, "Четверть льда");
-  newMap.set(IceType.CROSS, "Поперек");
+  map.set(IceType.FULL, "Весь лёд");
+  map.set(IceType.HALF, "Половина льда");
+  map.set(IceType.QUARTER, "Четверть льда");
+  map.set(IceType.CROSS, "Поперек");
 
-  return newMap;
+  return map;
 }

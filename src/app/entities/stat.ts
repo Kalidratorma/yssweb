@@ -1,8 +1,35 @@
+/**
+ * Статистика спортсмена
+ */
 export interface Stat {
-  id:      number;
-  date:    string;
-  goal:    number;
-  assist:  number;
-  points:  number;
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Дата
+   */
+  date: string;
+
+  /**
+   * Голы
+   */
+  goal: number;
+
+  /**
+   * Пасы
+   */
+  assist: number;
+
+  /**
+   * Очки
+   */
+  points: number;
+
+  /**
+   * Штрафы
+   */
   penalty: number;
 }

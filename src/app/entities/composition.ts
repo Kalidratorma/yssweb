@@ -1,22 +1,28 @@
 import {Unit} from "./unit";
 import {Team} from "./team";
 
+/**
+ * Состав
+ */
 export interface Composition {
 
-    id: number;
+  /**
+   * Идентификатор
+   */
+  id: number;
 
-    /**
-     * Номер состава
-     */
-    compositionNumber: number;
+  /**
+   * Номер состава
+   */
+  compositionNumber: number;
 
-    /**
-     * Звенья
-     */
-    units: Unit[];
+  /**
+   * Звенья
+   */
+  units: Unit[];
 
-    /**
-     * Команда
-     */
-    team: Team;
+  /**
+   * Команда
+   */
+  team: Team;
 }

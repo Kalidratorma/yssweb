@@ -1,7 +1,22 @@
+/**
+ * Амплуа/Позиция
+ */
 export class Position {
-  id:        number;
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Сокращенное название
+   */
   shortName: string;
-  name:      string;
+
+  /**
+   * Расширенное название
+   */
+  name: string;
 
   constructor(id: number, shortName: string, name: string) {
     this.id = id;

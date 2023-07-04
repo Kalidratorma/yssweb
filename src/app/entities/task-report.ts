@@ -1,14 +1,49 @@
 import {Task} from "./task";
 import {Player} from "./player";
-import {Link} from "./link";
+import {ContentFile} from "./сontent-file";
 
+/**
+ * Отчет по заданию тренера
+ */
 export interface TaskReport {
+
+  /**
+   * Идентификатор
+   */
   id: number;
+
+  /**
+   * Дата отчета
+   */
   reportDate: Date;
+
+  /**
+   * Задание тренера
+   */
   task: Task;
+
+  /**
+   * Спортсмен
+   */
   player: Player;
+
+  /**
+   * Дата задания
+   */
   taskDate: string;
+
+  /**
+   * Текст отчета
+   */
   report: String;
-  photoLinks: Link[];
-  videoLinks: Link[];
+
+  /**
+   * Список ссылок с фотографиями
+   */
+  photoLinks: ContentFile[];
+
+  /**
+   * Список видео ссылок
+   */
+  videoLinks: ContentFile[];
 }

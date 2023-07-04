@@ -1,7 +1,13 @@
 import {IceType} from "./ice-type";
 
+/**
+ * Формат игры
+ */
 export interface GameFormat {
 
+  /**
+   * Идентификатор
+   */
   id: number;
 
   /**

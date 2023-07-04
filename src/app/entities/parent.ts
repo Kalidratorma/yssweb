@@ -1,15 +1,24 @@
 import {Contract} from "./contract";
 import {User} from "./user";
-import {Sex} from "./sex";
+import {Person} from "./person";
 
-export interface Parent {
-  id:           number;
-  surname:      string;
-  name:         string;
-  patronymic?:  string;
-  birthDate:    string;
-  phoneNumber?: string;
-  sex:          Sex;
-  user?:        User;
-  contracts?:   Contract[];
+/**
+ * Родитель (клиент)
+ */
+export interface Parent extends Person {
+
+  /**
+   * Идентификатор
+   */
+  id: number;
+
+  /**
+   * Пользователь
+   */
+  user?: User;
+
+  /**
+   * Договора
+   */
+  contracts?: Contract[];
 }

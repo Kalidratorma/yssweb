@@ -1,11 +1,34 @@
 import {GripType} from "./grip-type";
 
+/**
+ * Физические показатели на определенную дату
+ */
 export class Physiology {
-  id?:     number;
-  date?:   Date;
+
+  /**
+   * Идентификатор
+   */
+  id?: number;
+
+  /**
+   * Дата
+   */
+  date?: Date;
+
+  /**
+   * Рост
+   */
   height: number;
+
+  /**
+   * Вес
+   */
   weight: number;
-  grip:   GripType;
+
+  /**
+   * Хват
+   */
+  grip: GripType;
 
   constructor(height: number, weight: number, grip: GripType) {
     this.height = height;
