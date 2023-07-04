@@ -11,6 +11,7 @@ const positionsModule = () => import('./pages/positions/positions.module').then(
 const parentsModule = () => import('./pages/parents/parents.module').then(x => x.ParentsModule);
 const contractsModule = () => import('./pages/contracts/contracts.module').then(x => x.ContractsModule);
 const teamYearsModule = () => import('./pages/teamYears/team-years.module').then(x => x.TeamYearsModule);
+const coachesModule = () => import('./pages/staff/coaches.module').then(x => x.CoachesModule);
 
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'parents', loadChildren: parentsModule },
   { path: 'contracts', loadChildren: contractsModule },
   { path: 'teamYears', loadChildren: teamYearsModule },
+  { path: 'staff', loadChildren: coachesModule },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

@@ -1,4 +1,9 @@
 <h1>{{title}}</h1>
+
+<div class="mb-3 col">
+  <img src="{{form.value?.photo}}" class="img-thumbnail" width="200" height="200" alt="Фото тренера">
+</div>
+
 <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="row">
     <div class="mb-3 col">
@@ -26,11 +31,6 @@
     <div class="mb-3 col">
       <label class="form-label">Дата рождения</label>
       <datepicker [dateStruct]="birthDate" (savedDate)="birthDate = $event">Загрузка...</datepicker>
-<!--      <input type="text" formControlName="role" class="form-control"-->
-<!--             [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"/>-->
-<!--      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">-->
-<!--        <div *ngIf="f['role'].errors?.['required']">Role is required</div>-->
-<!--      </div>-->
     </div>
     <div class="mb-3 col">
       <label class="form-label">Номер телефона</label>
@@ -51,16 +51,36 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Почта</label>
+      <input type="text" formControlName="email" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Тип тренера</label>
+      <input type="text" formControlName="coachType" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Образование</label>
+      <input type="text" formControlName="education" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Фото</label>
+      <input type="text" formControlName="photo" class="form-control"/>
+    </div>
+  </div>
   <div class="mb-3">
-    <a routerLink="../contracts/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Договора</a>
-    <a routerLink="../players/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Спортсмены</a>
+    <a routerLink="../contracts/byCoach/{{id}}" class="btn btn-sm btn-primary me-1">Договора</a>
+    <a routerLink="../teams/byCoach/{{id}}" class="btn btn-sm btn-primary me-1">Команды</a>
   </div>
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary">
       <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
       Сохранить
     </button>
-    <a routerLink="/parents" class="btn btn-link">Отмена</a>
+    <a routerLink="/staff" class="btn btn-link">Отмена</a>
   </div>
 </form>
 <div *ngIf="loading" class="text-center m-5">

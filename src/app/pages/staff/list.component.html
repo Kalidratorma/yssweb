@@ -1,0 +1,31 @@
+<h1>Тренерский состав</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить тренера</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 20%">Фамилия</th>
+            <th style="width: 20%">Имя</th>
+            <th style="width: 20%">Отчество</th>
+            <th style="width: 20%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let coach of coaches">
+            <td>{{coach.surname}}</td>
+            <td>{{coach.name}}</td>
+            <td>{{coach.patronymic}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{coach.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+                <button (click)="deleteCoach(coach.id)" class="btn btn-sm btn-danger btn-delete-coach" [disabled]="isDeleting[coach.id]">
+                    <span *ngIf="isDeleting[coach.id]" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!isDeleting[coach.id]">Удалить</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!coaches">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
