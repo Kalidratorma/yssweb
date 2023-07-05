@@ -8,3 +8,4 @@ export * from './contract.service';
 export * from './team-year.service';
 export * from './coach.service';
 export * from './season.service';
+export * from './tournament.service';

@@ -1,0 +1,34 @@
+<h1>Турнир</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить турнир</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 25%">Название турнира</th>
+    <th style="width: 25%">Тип турнира</th>
+    <th style="width: 25%">Электронная почта</th>
+    <th style="width: 25%">Контакты организаторов</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let tournament of tournaments">
+    <td>{{tournament.name}}</td>
+    <td>{{tournamentEnumMap.get(tournament.type)}}</td>
+    <td><a href="mailto:{{tournament.email}}">{{tournament.email}}</a></td>
+    <td>{{tournament.phoneNumber}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{tournament.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(tournament.id)" class="btn btn-sm btn-danger btn-delete-tournament"
+              [disabled]="isDeleting[tournament.id]">
+        <span *ngIf="isDeleting[tournament.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[tournament.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!tournaments">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
