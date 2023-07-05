@@ -2,15 +2,54 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark px-3" *ngIf="user">
   <div class="navbar-nav">
     <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Домашняя</a>
-    <a class="nav-item nav-link" routerLink="/players" routerLinkActive="active">Спортсмены</a>
-    <a class="nav-item nav-link" routerLink="/contracts" routerLinkActive="active">Договора</a>
-    <a class="nav-item nav-link" routerLink="/parents" routerLinkActive="active">Родители</a>
-    <a class="nav-item nav-link" routerLink="/positions" routerLinkActive="active">Амплуа</a>
-    <a class="nav-item nav-link" routerLink="/staff" routerLinkActive="active">Тренерский состав</a>
-    <a class="nav-item nav-link" routerLink="/teams" routerLinkActive="active">Команды</a>
-    <a class="nav-item nav-link" routerLink="/teamYears" routerLinkActive="active">Год команды</a>
-    <a class="nav-item nav-link" routerLink="/gameFormats" routerLinkActive="active">Форматы игры</a>
-    <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Пользователи</a>
+
+    <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Тренировки</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/training" routerLinkActive="active">Тренировки</a>
+        <a ngbDropdownItem routerLink="/trainingFormats" routerLinkActive="active">Формат тренировок</a>
+      </div>
+    </div>
+
+    <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Игры</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/seasons" routerLinkActive="active">Сезоны</a>
+        <a ngbDropdownItem routerLink="/games" routerLinkActive="active">Игры</a>
+        <a ngbDropdownItem routerLink="/tournaments" routerLinkActive="active">Турниры</a>
+        <a ngbDropdownItem routerLink="/gameStats" routerLinkActive="active">Статистика игр</a>
+      </div>
+    </div>
+
+    <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Статистика</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/gameStats" routerLinkActive="active">Статистика игр</a>
+        <a ngbDropdownItem routerLink="/playerStats" routerLinkActive="active">Статистика спортсменов</a>
+      </div>
+    </div>
+
+    <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Справочники</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/players" routerLinkActive="active">Спортсмены</a>
+        <a ngbDropdownItem routerLink="/parents" routerLinkActive="active">Родители</a>
+        <a ngbDropdownItem routerLink="/positions" routerLinkActive="active">Амплуа</a>
+        <a ngbDropdownItem routerLink="/staff" routerLinkActive="active">Тренерский состав</a>
+        <a ngbDropdownItem routerLink="/teams" routerLinkActive="active">Команды</a>
+        <a ngbDropdownItem routerLink="/teamYears" routerLinkActive="active">Год команды</a>
+        <a ngbDropdownItem routerLink="/gameFormats" routerLinkActive="active">Форматы игры</a>
+        <a ngbDropdownItem routerLink="/contracts" routerLinkActive="active">Договора</a>
+      </div>
+    </div>
+
+    <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Администрирование</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/users" routerLinkActive="active">Пользователи</a>
+      </div>
+    </div>
+
     <button class="btn btn-link nav-item nav-link" (click)="logout()">Выход</button>
   </div>
 </nav>
