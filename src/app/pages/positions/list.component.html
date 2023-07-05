@@ -1,29 +1,30 @@
 <h1>Амплуа</h1>
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить амплуа</a>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 30%">Сокращенное название</th>
-            <th style="width: 30%">Расширенное название</th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let position of positions">
-            <td>{{position.shortName}}</td>
-            <td>{{position.name}}</td>
-            <td style="white-space: nowrap">
-                <a routerLink="edit/{{position.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
-                <button (click)="delete(position.id)" class="btn btn-sm btn-danger btn-delete-position" [disabled]="isDeleting[position.id]">
-                    <span *ngIf="isDeleting[position.id]" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isDeleting[position.id]">Удалить</span>
-                </button>
-            </td>
-        </tr>
-        <tr *ngIf="!positions">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+  <tr>
+    <th style="width: 30%">Сокращенное название</th>
+    <th style="width: 30%">Расширенное название</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let position of positions">
+    <td>{{position.shortName}}</td>
+    <td>{{position.name}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{position.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(position.id)" class="btn btn-sm btn-danger btn-delete-position"
+              [disabled]="isDeleting[position.id]">
+        <span *ngIf="isDeleting[position.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[position.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!positions">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
 </table>

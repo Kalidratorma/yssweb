@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {GameFormat} from "../entities/game-format";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";

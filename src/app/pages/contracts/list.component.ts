@@ -31,7 +31,7 @@ export class ListComponent implements OnInit {
 
   delete(id: number) {
     const contract = this.contracts!.find(x => x.id === id);
-    if(contract) {
+    if (contract) {
       this.isDeleting[contract.id] = true;
       this.contractService.delete(id)
         .pipe(first())

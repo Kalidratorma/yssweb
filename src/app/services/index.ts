@@ -9,3 +9,6 @@ export * from './team-year.service';
 export * from './coach.service';
 export * from './season.service';
 export * from './tournament.service';
+export * from './club.service';
+export * from './club-team.service';
+export * from './game.service';

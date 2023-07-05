@@ -45,7 +45,6 @@ export class AddEditComponent implements OnInit {
     private alertService: AlertService,
     private positionService: PositionService,
     private teamYearService: TeamYearService
-
   ) {
     this.positionService.getAll()
       .pipe(first())
@@ -72,10 +71,10 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.player = x;
-          if(this.player.position) {
+          if (this.player.position) {
             this.player.position = this.positions.find(x => x.id == this.player?.position?.id);
           }
-          if(this.player.teamYear) {
+          if (this.player.teamYear) {
             this.player.teamYear = this.teamYears.find(x => x.id == this.player?.teamYear?.id);
           }
           if (this.player.birthDate) {
@@ -131,8 +130,8 @@ export class AddEditComponent implements OnInit {
       this.player.physiologyList = [];
     }
     if (this.savedHeight != this.height ||
-        this.savedWeight != this.weight ||
-        this.savedGrip != this.grip) {
+      this.savedWeight != this.weight ||
+      this.savedGrip != this.grip) {
       this.player.physiologyList.push(new Physiology(this.height!, this.weight!, this.grip!))
     }
 

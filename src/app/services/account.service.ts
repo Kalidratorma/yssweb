@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {User} from "../entities/user";
 import {Router} from "@angular/router";
@@ -26,9 +26,9 @@ export class AccountService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<User>(`${environment.apiUrl}/auth/enter`, { username, password })
+    return this.http.post<User>(`${environment.apiUrl}/auth/enter`, {username, password})
       .pipe(map(user => {
-        if(Role.ADMIN == user.role) {
+        if (Role.ADMIN == user.role) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('user', JSON.stringify(user));
           this.userSubject.next(user);
@@ -64,7 +64,7 @@ export class AccountService {
         // update stored user if the logged-in user updated their own record
         if (username == this.userValue?.username) {
           // update local storage
-          const user = { ...this.userValue, ...params };
+          const user = {...this.userValue, ...params};
           localStorage.setItem('user', JSON.stringify(user));
 
           // publish updated user to subscribers

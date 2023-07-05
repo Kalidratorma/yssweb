@@ -1,0 +1,32 @@
+<h1>Команда соперника</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить команду соперника</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 30%">Клуб</th>
+    <th style="width: 30%">Наименование команды</th>
+    <th style="width: 30%">Год команды</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let clubTeam of clubTeams">
+    <td>{{clubTeam.club.name}}</td>
+    <td>{{clubTeam.name}}</td>
+    <td>{{clubTeam.teamYear}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{clubTeam.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(clubTeam.id)" class="btn btn-sm btn-danger btn-delete-clubTeam"
+              [disabled]="isDeleting[clubTeam.id]">
+        <span *ngIf="isDeleting[clubTeam.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[clubTeam.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!clubTeams">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -5,22 +5,22 @@ export enum IceType {
   /**
    * Весь лёд
    */
-  FULL="FULL",
+  FULL = "FULL",
 
   /**
    * Половина льда
    */
-  HALF="HALF",
+  HALF = "HALF",
 
   /**
    * Четверть льда
    */
-  QUARTER="QUARTER",
+  QUARTER = "QUARTER",
 
   /**
    * Поперек
    */
-  CROSS="CROSS"
+  CROSS = "CROSS"
 }
 
 /**

@@ -44,6 +44,14 @@
     </div>
 
     <div ngbDropdown class="nav-item" role="presentation">
+      <button type="button" class="nav-link" ngbDropdownToggle>Соперники</button>
+      <div ngbDropdownMenu>
+        <a ngbDropdownItem routerLink="/clubs" routerLinkActive="active">Клубы</a>
+        <a ngbDropdownItem routerLink="/clubTeams" routerLinkActive="active">Команды</a>
+      </div>
+    </div>
+
+    <div ngbDropdown class="nav-item" role="presentation">
       <button type="button" class="nav-link" ngbDropdownToggle>Администрирование</button>
       <div ngbDropdownMenu>
         <a ngbDropdownItem routerLink="/users" routerLinkActive="active">Пользователи</a>

@@ -26,10 +26,10 @@ export class DateUtility {
   }
 
   static getDbFormatFromNgbDateStruct(date: NgbDateStruct | null): string {
-    return date ?  date.year +
+    return date ? date.year +
       DateUtility.DB_FORMAT_DELIMITER +
       (date.month < 10 ? '0' + date.month : date.month) +
       DateUtility.DB_FORMAT_DELIMITER +
-      (date.day < 10 ? '0' + date.day : date.day): '';
+      (date.day < 10 ? '0' + date.day : date.day) : '';
   }
 }

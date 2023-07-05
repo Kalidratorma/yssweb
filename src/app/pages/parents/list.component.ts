@@ -34,7 +34,7 @@ export class ListComponent implements OnInit {
 
   delete(id: number) {
     const parent = this.parents!.find(x => x.id === id);
-    if(parent) {
+    if (parent) {
       this.isDeleting[parent.id] = true;
       this.parentService.delete(id)
         .pipe(first())

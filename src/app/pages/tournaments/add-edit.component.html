@@ -41,7 +41,8 @@
       <label class="form-label">Тип турнира</label>
       <select formControlName="type" class="form-select"
               [ngClass]="{ 'is-invalid': submitted && f['type'].errors }">
-        <option *ngFor="let tournamentEnum of tournamentEnumMap.keys()" [ngValue]="tournamentEnum">{{tournamentEnumMap.get(tournamentEnum)}}</option>
+        <option *ngFor="let tournamentEnum of tournamentEnumMap.keys()"
+                [ngValue]="tournamentEnum">{{tournamentEnumMap.get(tournamentEnum)}}</option>
       </select>
       <div *ngIf="submitted && f['type'].errors" class="invalid-feedback">
         <div *ngIf="f['type'].errors?.['required']">Тип турнира обязателен</div>

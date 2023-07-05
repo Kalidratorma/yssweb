@@ -1,16 +1,16 @@
 <form class="row row-cols-sm-auto">
-    <div class="input-group">
-      <input
-        class="form-control"
-        placeholder="dd.MM.yyyy"
-        name="dp"
-        [(ngModel)]="dateStruct"
-        (ngModelChange)="onSave($event)"
-        ngbDatepicker
-        [minDate]="minDate"
-        [maxDate]="maxDate"
-        #dp="ngbDatepicker"
-      />
-      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
-    </div>
+  <div class="input-group">
+    <input
+      class="form-control"
+      placeholder="dd.MM.yyyy"
+      name="dp"
+      [(ngModel)]="dateStruct"
+      (ngModelChange)="onSave($event)"
+      ngbDatepicker
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+      #dp="ngbDatepicker"
+    />
+    <button class="btn btn-outline-secondary bi bi-calendar3" (click)="dp.toggle()" type="button"></button>
+  </div>
 </form>

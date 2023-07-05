@@ -22,8 +22,7 @@ import {DatepickerModule} from "../../components/datepicker/datepicker.module";
     ListComponent,
     AddEditComponent
   ],
-  exports: [
-  ]
+  exports: []
 })
 export class CoachesModule {
 }

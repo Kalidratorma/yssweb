@@ -8,6 +8,7 @@ import {User} from "../../entities/user";
 export class ListComponent implements OnInit {
   users?: User[];
   isDeleting: boolean[] = [];
+
   constructor(private accountService: AccountService) {
   }
 
@@ -24,7 +25,7 @@ export class ListComponent implements OnInit {
 
   deleteUser(username: string) {
     const user = this.users!.find(x => x.username === username);
-    if(user) {
+    if (user) {
       this.isDeleting[user.id] = true;
       this.accountService.delete(username)
         .pipe(first())

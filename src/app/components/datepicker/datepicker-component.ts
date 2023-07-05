@@ -85,8 +85,8 @@ export class Datepicker {
   @Input() dateStruct: NgbDateStruct = {} as NgbDateStruct;
   @Output() savedDate = new EventEmitter<NgbDateStruct>;
 
-  readonly minDate: NgbDateStruct = {year:1920, month: 1, day: 1} as NgbDateStruct;
-  readonly maxDate: NgbDateStruct = {year:2030, month: 1, day: 1} as NgbDateStruct;
+  readonly minDate: NgbDateStruct = {year: 1920, month: 1, day: 1} as NgbDateStruct;
+  readonly maxDate: NgbDateStruct = {year: 2030, month: 1, day: 1} as NgbDateStruct;
 
   onSave(event: NgbDateStruct) {
     this.savedDate.emit(event);

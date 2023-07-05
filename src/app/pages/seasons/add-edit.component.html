@@ -5,7 +5,7 @@
       <label class="form-label">Сезон</label>
       <input type="number" formControlName="season" class="form-control"
              [ngClass]="{ 'is-invalid': submitted && f['season'].errors }"/>
-      <p *ngIf="f['season'].value>1900">Полное наименование сезона: {{f['season'].value}}-{{f['season'].value+1}}</p>
+      <p *ngIf="f['season'].value>1900">Полное наименование сезона: {{f['season'].value}}-{{f['season'].value + 1}}</p>
       <div *ngIf="submitted && f['season'].errors" class="invalid-feedback">
         <div *ngIf="f['season'].errors?.['required']">Сезон обязателен</div>
       </div>

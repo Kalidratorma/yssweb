@@ -1,0 +1,31 @@
+<h1>Клубы соперника</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить клуб</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 30%">Наименование клуба</th>
+    <th style="width: 30%">Сайт</th>
+    <th style="width: 30%">Контакты</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let club of clubs">
+    <td>{{club.name}}</td>
+    <td><a href="{{club.siteUrl}}">{{club.siteUrl}}</a></td>
+    <td>{{club.contacts}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{club.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(club.id)" class="btn btn-sm btn-danger btn-delete-club" [disabled]="isDeleting[club.id]">
+        <span *ngIf="isDeleting[club.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[club.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!clubs">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

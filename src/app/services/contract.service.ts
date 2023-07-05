@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Contract} from "../entities/contract";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";

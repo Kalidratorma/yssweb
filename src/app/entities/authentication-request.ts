@@ -1,4 +1,4 @@
 export interface AuthenticationRequest {
-    username: String;
-    password: String;
+  username: String;
+  password: String;
 }

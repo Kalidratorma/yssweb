@@ -1,27 +1,28 @@
 <h1>Сезон</h1>
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить сезон</a>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 30%">Сезон</th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let season of seasons">
-            <td>{{season.season}}-{{season.season+1}}</td>
-            <td style="white-space: nowrap">
-                <a routerLink="edit/{{season.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
-                <button (click)="delete(season.id)" class="btn btn-sm btn-danger btn-delete-season" [disabled]="isDeleting[season.id]">
-                    <span *ngIf="isDeleting[season.id]" class="spinner-border spinner-border-sm"></span>
-                    <span *ngIf="!isDeleting[season.id]">Удалить</span>
-                </button>
-            </td>
-        </tr>
-        <tr *ngIf="!seasons">
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr>
-    </tbody>
+  <thead>
+  <tr>
+    <th style="width: 30%">Сезон</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let season of seasons">
+    <td>{{season.season}}-{{season.season + 1}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{season.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(season.id)" class="btn btn-sm btn-danger btn-delete-season"
+              [disabled]="isDeleting[season.id]">
+        <span *ngIf="isDeleting[season.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[season.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!seasons">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
 </table>

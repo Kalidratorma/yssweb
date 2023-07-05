@@ -12,7 +12,7 @@
     <div class="mb-3 col">
       <label class="form-label">Коммерческая/Некоммерческая</label>
       <select formControlName="isCommercial" class="form-select"
-             [ngClass]="{ 'is-invalid': submitted && f['isCommercial'].errors }">
+              [ngClass]="{ 'is-invalid': submitted && f['isCommercial'].errors }">
         <option value="false">Не коммерческая</option>
         <option value="true">Коммерческая</option>
       </select>
@@ -24,8 +24,10 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Тип льда</label>
-      <select formControlName="iceType" class="form-select" [ngClass]="{ 'is-invalid': submitted && f['iceType'].errors }">
-        <option *ngFor="let iceTypeIns of iceTypeMap.keys()" [ngValue]="iceTypeIns">{{iceTypeMap.get(iceTypeIns)}}</option>
+      <select formControlName="iceType" class="form-select"
+              [ngClass]="{ 'is-invalid': submitted && f['iceType'].errors }">
+        <option *ngFor="let iceTypeIns of iceTypeMap.keys()"
+                [ngValue]="iceTypeIns">{{iceTypeMap.get(iceTypeIns)}}</option>
       </select>
       <div *ngIf="submitted && f['iceType'].errors" class="invalid-feedback">
         <div *ngIf="f['iceType'].errors?.['required']">Тип льда обязательно!</div>
