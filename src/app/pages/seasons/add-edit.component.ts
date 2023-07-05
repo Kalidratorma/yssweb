@@ -3,9 +3,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {AlertService, CoachService} from '../../services';
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/DateUtility";
+import {AlertService, SeasonService} from '../../services';
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -16,13 +14,11 @@ export class AddEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
-  birthDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
-
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private coachService: CoachService,
+    private seasonService: SeasonService,
     private alertService: AlertService
   ) {
   }
@@ -33,35 +29,18 @@ export class AddEditComponent implements OnInit {
     // form with validation rules
     this.form = this.formBuilder.group({
       id: [],
-      surname: ['', Validators.required],
-      name: ['', Validators.required],
-      patronymic: [''],
-      sex: [null, Validators.required],
-      birthDate: [null],
-      email: [null],
-      phoneNumber: ['', Validators.required],
-      photo: [''],
-      education: [null],
-      contract: [null],
-      coachType: ['', Validators.required],
-      user: [null]
+      season: ['', Validators.required]
     });
 
-    this.title = 'Добавить тренера';
+    this.title = 'Добавить сезон';
     if (this.id) {
       // edit mode
-      this.title = 'Редактировать тренера';
+      this.title = 'Редактировать сезон';
       this.loading = true;
-      this.coachService.getById(this.id)
+      this.seasonService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
-          if (x.birthDate) {
-            let eDate = DateUtility.getNgbDateStructFromDbFormat(x.birthDate);
-            if (eDate) {
-              this.birthDate = eDate;
-            }
-          }
           this.loading = false;
         });
     }
@@ -88,8 +67,8 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Тренер сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/staff');
+          this.alertService.success('Сезон сохранен', {keepAfterRouteChange: true});
+          this.router.navigateByUrl('/seasons');
         },
         error: error => {
           this.alertService.error(error);
@@ -99,12 +78,9 @@ export class AddEditComponent implements OnInit {
   }
 
   private save() {
-
-    this.form.value.birthDate = DateUtility.getDbFormatFromNgbDateStruct(this.birthDate);
-
     // create or update user based on id param
     return this.id
-      ? this.coachService.update(this.form.value)
-      : this.coachService.create(this.form.value);
+      ? this.seasonService.update(this.form.value)
+      : this.seasonService.create(this.form.value);
   }
 }

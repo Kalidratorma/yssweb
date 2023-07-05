@@ -13,6 +13,8 @@ const contractsModule = () => import('./pages/contracts/contracts.module').then(
 const teamYearsModule = () => import('./pages/teamYears/team-years.module').then(x => x.TeamYearsModule);
 const coachesModule = () => import('./pages/staff/coaches.module').then(x => x.CoachesModule);
 
+const seasonsModule = () => import('./pages/seasons/seasons.module').then(x => x.SeasonsModule);
+
 
 
 const routes: Routes = [
@@ -26,6 +28,7 @@ const routes: Routes = [
   { path: 'contracts', loadChildren: contractsModule },
   { path: 'teamYears', loadChildren: teamYearsModule },
   { path: 'staff', loadChildren: coachesModule },
+  { path: 'seasons', loadChildren: seasonsModule },
 
   // otherwise redirect to home
   { path: '**', redirectTo: '' }

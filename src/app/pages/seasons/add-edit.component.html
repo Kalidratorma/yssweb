@@ -1,0 +1,24 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Сезон</label>
+      <input type="number" formControlName="season" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['season'].errors }"/>
+      <p *ngIf="f['season'].value>1900">Полное наименование сезона: {{f['season'].value}}-{{f['season'].value+1}}</p>
+      <div *ngIf="submitted && f['season'].errors" class="invalid-feedback">
+        <div *ngIf="f['season'].errors?.['required']">Сезон обязателен</div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/seasons" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

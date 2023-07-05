@@ -65,7 +65,7 @@ export class AddEditComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.saveUser()
+    this.save()
       .pipe(first())
       .subscribe({
         next: () => {
@@ -79,7 +79,7 @@ export class AddEditComponent implements OnInit {
       })
   }
 
-  private saveUser() {
+  private save() {
     // create or update user based on id param
     return this.id
       ? this.teamYearService.update(this.form.value)
