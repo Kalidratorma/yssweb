@@ -4,6 +4,7 @@ import {Physiology} from "./physiology";
 import {Position} from "./position";
 import {Stat} from "./stat";
 import {Person} from "./person";
+import {TeamYear} from "./team-year";
 
 /**
  * Спортсмен
@@ -33,7 +34,7 @@ export interface Player extends Person {
   /**
    * Год команды
    */
-  teamYear?: number;
+  teamYear?: TeamYear;
 
   /**
    * Амплуа/позиция

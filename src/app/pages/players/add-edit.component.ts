@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 
-import {AlertService, PlayerService, PositionService} from '../../services';
+import {AlertService, PlayerService, PositionService, TeamYearService} from '../../services';
 import {Player} from "../../entities/player";
 import {GripType} from "../../entities/grip-type";
 import {Physiology} from "../../entities/physiology";
@@ -10,6 +10,7 @@ import {throwError} from "rxjs";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility/DateUtility";
 import {Position} from "../../entities/position";
+import {TeamYear} from "../../entities/team-year";
 
 @Component({
   selector: 'player-details',
@@ -35,18 +36,27 @@ export class AddEditComponent implements OnInit {
   birthDate: NgbDateStruct = {} as NgbDateStruct;
 
   positions: Position[] = [];
+  teamYears: TeamYear[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private playerService: PlayerService,
     private alertService: AlertService,
-    private positionService: PositionService
+    private positionService: PositionService,
+    private teamYearService: TeamYearService
+
   ) {
     this.positionService.getAll()
       .pipe(first())
       .subscribe(x => {
         this.positions = x;
+      });
+
+    this.teamYearService.getAll()
+      .pipe(first())
+      .subscribe(x => {
+        this.teamYears = x;
       });
   }
 
@@ -64,6 +74,9 @@ export class AddEditComponent implements OnInit {
           this.player = x;
           if(this.player.position) {
             this.player.position = this.positions.find(x => x.id == this.player?.position?.id);
+          }
+          if(this.player.teamYear) {
+            this.player.teamYear = this.teamYears.find(x => x.id == this.player?.teamYear?.id);
           }
           if (this.player.birthDate) {
             let eDate = DateUtility.getNgbDateStructFromDbFormat(this.player.birthDate);
@@ -100,7 +113,7 @@ export class AddEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.alertService.success('Игрок сохранен', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/players').then(r => false);
+          this.router.navigateByUrl('/players').then(() => false);
         },
         error: error => {
           this.alertService.error(error);

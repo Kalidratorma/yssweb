@@ -14,7 +14,7 @@
         <tr *ngFor="let player of players">
             <td>{{player.surname}}</td>
             <td>{{player.name}}</td>
-            <td>{{player.teamYear}}</td>
+            <td>{{player.teamYear?.year}}</td>
             <td>{{player.birthDate | date: "dd.MM.yyyy г."}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{player.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
