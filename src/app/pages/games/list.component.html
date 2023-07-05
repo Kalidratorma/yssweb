@@ -1,0 +1,36 @@
+<h1>Игра</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить игру</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 20%">Турнир</th>
+    <th style="width: 15%">Сезон</th>
+    <th style="width: 15%">Дата</th>
+    <th style="width: 15%">Год команды</th>
+    <th style="width: 15%">Соперник</th>
+    <th style="width: 20%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let game of games">
+    <td>{{game.tournament.name}}</td>
+    <td>{{game.season.season}}-{{game.season.season+1}}</td>
+    <td>{{game.date | date: "dd.MM.yyyy г."}}</td>
+    <td>{{game.teamYear.year}}</td>
+    <td>{{game.clubTeam.name}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{game.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(game.id)" class="btn btn-sm btn-danger btn-delete-game"
+              [disabled]="isDeleting[game.id]">
+        <span *ngIf="isDeleting[game.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[game.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!games">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -48,7 +48,7 @@ export class Tournament {
   /**
    * Примечание
    */
-  note: string;
+  note: string
 
   constructor(id: number, name: string, phoneNumber: string, email: string, fullName: string, siteUrl: string, youtubeUrl: string, type: TournamentEnum, note: string) {
     this.id = id;

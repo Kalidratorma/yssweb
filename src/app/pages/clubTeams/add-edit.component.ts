@@ -95,4 +95,8 @@ export class AddEditComponent implements OnInit {
       ? this.clubTeamService.update(this.form.value)
       : this.clubTeamService.create(this.form.value);
   }
+
+  compareFn(a: {id: number}, b: {id: number}): boolean {
+    return a.id === b.id;
+  }
 }

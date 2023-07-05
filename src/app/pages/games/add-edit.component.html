@@ -1,0 +1,67 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Турнир</label>
+      <select formControlName="tournament" class="form-select" [compareWith]="compareFn"
+              [ngClass]="{ 'is-invalid': submitted && f['tournament'].errors }">
+        <option *ngFor="let tournament of tournaments"
+                [ngValue]="tournament">{{tournament.name}}</option>
+      </select>
+      <div *ngIf="submitted && f['tournament'].errors" class="invalid-feedback">
+        <div *ngIf="f['tournament'].errors?.['required']">Турнир обязателен</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Дата игры</label>
+      <datepicker [dateStruct]="gameDate" (savedDate)="gameDate = $event">Загрузка...</datepicker>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Время игры (начало)</label>
+      <input type="text" formControlName="time" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Сезон</label>
+      <select formControlName="season" class="form-select" [compareWith]="compareFn"
+              [ngClass]="{ 'is-invalid': submitted && f['season'].errors }">
+        <option *ngFor="let season of seasons"
+                [ngValue]="season">{{season.season + "-" + (season.season+1)}}</option>
+      </select>
+      <div *ngIf="submitted && f['season'].errors" class="invalid-feedback">
+        <div *ngIf="f['season'].errors?.['required']">Сезон обязателен</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Адрес арены</label>
+      <input type="text" formControlName="arenaAddress" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Год команды</label>
+      <select formControlName="teamYear" class="form-select" [compareWith]="compareFn">
+        <option *ngFor="let teamYear of teamYears"
+                [ngValue]="teamYear">{{teamYear.teamName}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Команда Соперника</label>
+      <select formControlName="clubTeam" class="form-select" [compareWith]="compareFn">
+        <option *ngFor="let clubTeam of clubTeams"
+                [ngValue]="clubTeam">{{clubTeam.club.name + " " + clubTeam.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/games" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>
