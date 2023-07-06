@@ -13,7 +13,7 @@
   <tr *ngFor="let clubTeam of clubTeams">
     <td>{{clubTeam.club.name}}</td>
     <td>{{clubTeam.name}}</td>
-    <td>{{clubTeam.teamYear}}</td>
+    <td>{{clubTeam.teamYear ? clubTeam.teamYear.teamName : ''}}</td>
     <td style="white-space: nowrap">
       <a routerLink="edit/{{clubTeam.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
       <button (click)="delete(clubTeam.id)" class="btn btn-sm btn-danger btn-delete-clubTeam"

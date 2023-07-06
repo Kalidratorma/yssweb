@@ -5,7 +5,7 @@ import {first} from 'rxjs/operators';
 
 import {AlertService, CoachService} from '../../services';
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/DateUtility";
+import {DateUtility} from "../../utility/date-utility";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {

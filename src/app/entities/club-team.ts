@@ -1,4 +1,5 @@
 import {Club} from "./club";
+import {TeamYear} from "./team-year";
 
 /**
  * Команда клуба соперников
@@ -28,10 +29,10 @@ export class ClubTeam {
   /**
    * Год команды
    */
-  teamYear: number;
+  teamYear: TeamYear;
 
 
-  constructor(id: number, club: Club, name: string, contacts: string, teamYear: number) {
+  constructor(id: number, club: Club, name: string, contacts: string, teamYear: TeamYear) {
     this.id = id;
     this.club = club;
     this.name = name;

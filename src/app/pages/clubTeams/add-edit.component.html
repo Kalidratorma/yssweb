@@ -3,7 +3,7 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Клуб соперника</label>
-      <select formControlName="club" class="form-select" [compareWith]="compareFn"
+      <select formControlName="club" class="form-select" [compareWith]="ObjectUtility.compareFn"
               [ngClass]="{ 'is-invalid': submitted && f['club'].errors }">
         <option *ngFor="let club of clubs"
                 [ngValue]="club">{{club.name}}</option>
@@ -22,8 +22,10 @@
     </div>
     <div class="mb-3 col">
       <label class="form-label">Год команды соперника</label>
-      <input type="number" formControlName="teamYear" class="form-control"
-             [ngClass]="{ 'is-invalid': submitted && f['teamYear'].errors }"/>
+      <select formControlName="teamYear" class="form-select" [compareWith]="ObjectUtility.compareFn"
+             [ngClass]="{ 'is-invalid': submitted && f['teamYear'].errors }">
+        <option *ngFor="let teamYear of teamYears" [ngValue]="teamYear">{{teamYear.teamName}}</option>
+      </select>
       <div *ngIf="submitted && f['teamYear'].errors" class="invalid-feedback">
         <div *ngIf="f['teamYear'].errors?.['required']">Год команды соперника обязательно</div>
       </div>

@@ -8,7 +8,7 @@ import {GripType} from "../../entities/grip-type";
 import {Physiology} from "../../entities/physiology";
 import {throwError} from "rxjs";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/DateUtility";
+import {DateUtility} from "../../utility/date-utility";
 import {Position} from "../../entities/position";
 import {TeamYear} from "../../entities/team-year";
 

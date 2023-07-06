@@ -13,11 +13,11 @@
   </thead>
   <tbody>
   <tr *ngFor="let game of games">
-    <td>{{game.tournament.name}}</td>
-    <td>{{game.season.season}}-{{game.season.season+1}}</td>
+    <td><p *ngIf="game.tournament">{{game.tournament.name}}</p></td>
+    <td><p *ngIf="game.season">{{game.season.season}}-{{game.season.season+1}}</p></td>
     <td>{{game.date | date: "dd.MM.yyyy г."}}</td>
-    <td>{{game.teamYear.year}}</td>
-    <td>{{game.clubTeam.name}}</td>
+    <td><p *ngIf="game.teamYear">{{game.teamYear.year}}</p></td>
+    <td><p *ngIf="game.clubTeam">{{game.clubTeam.club.name + " " + game.clubTeam.name}}</p></td>
     <td style="white-space: nowrap">
       <a routerLink="edit/{{game.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
       <button (click)="delete(game.id)" class="btn btn-sm btn-danger btn-delete-game"

@@ -1,8 +1,17 @@
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
+/**
+ * Утилитарный класс для работы с Датами
+ */
 export class DateUtility {
   static readonly DB_FORMAT_DELIMITER = '-';
 
+  /**
+   * Получить структуру NgbDateStruct из даты
+   *
+   * @param date дата
+   * @return структура NgbDateStruct
+   */
   static getNgbDateStructFromDate(date: Date): NgbDateStruct {
     const newDate: Date = new Date(date);
     return {
@@ -12,6 +21,12 @@ export class DateUtility {
     } as NgbDateStruct;
   }
 
+  /**
+   * Получить структуру NgbDateStruct из строки
+   *
+   * @param value дата в виде строки
+   * @return структура NgbDateStruct либо null
+   */
   static getNgbDateStructFromDbFormat(value: string): NgbDateStruct | null {
     let ngbDateStruct: NgbDateStruct | null = null;
     if (value) {
@@ -25,6 +40,12 @@ export class DateUtility {
     return ngbDateStruct;
   }
 
+  /**
+   * Получить дату в виде строки из структуры NgbDateStruct
+   *
+   * @param date структура NgbDateStruct либо null
+   * @return дата в виде строки
+   */
   static getDbFormatFromNgbDateStruct(date: NgbDateStruct | null): string {
     return date ? date.year +
       DateUtility.DB_FORMAT_DELIMITER +

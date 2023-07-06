@@ -19,12 +19,12 @@ export class ListComponent implements OnInit {
         (a: Game, b: Game) => {
           const nameA = a.tournament.name.toUpperCase();
           const nameB = b.tournament.name.toUpperCase();
-          const seasonA = a.season.season;
-          const seasonB = b.season.season;
-          const dateA = a.date.toUpperCase();
-          const dateB = b.date.toUpperCase();
-          const timeA = a.time.toUpperCase();
-          const timeB = b.time.toUpperCase();
+          const seasonA = a.season ? a.season.season : 0;
+          const seasonB = b.season ? b.season.season : 0;
+          const dateA = a.date ? a.date.toUpperCase() : '';
+          const dateB = b.date ? b.date.toUpperCase() : '';
+          const timeA = a.time ? a.time.toUpperCase() : '';
+          const timeB = b.time ? b.time.toUpperCase() : '';
           return (nameA < nameB) ? -1 : (nameA > nameB) ? 1 :
             (seasonA < seasonB) ? -1 : (seasonA > seasonB) ? 1 :
             (dateA < dateB) ? -1 : (dateA > dateB) ? 1 :

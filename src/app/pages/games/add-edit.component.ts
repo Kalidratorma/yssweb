@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
+import {ObjectUtility} from '../../utility/object-utility'
 
 import {
   AlertService,
@@ -15,7 +16,7 @@ import {Tournament} from "../../entities/tournament";
 import {Season} from "../../entities/season";
 import {TeamYear} from "../../entities/team-year";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/DateUtility";
+import {DateUtility} from "../../utility/date-utility";
 import {ClubTeam} from "../../entities/club-team";
 
 @Component({templateUrl: './add-edit.component.html'})
@@ -33,6 +34,8 @@ export class AddEditComponent implements OnInit {
   clubTeams: ClubTeam[] = [];
 
   gameDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
+
+  protected readonly ObjectUtility = ObjectUtility;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -139,9 +142,5 @@ export class AddEditComponent implements OnInit {
     return this.id
       ? this.gameService.update(this.form.value)
       : this.gameService.create(this.form.value);
-  }
-
-  compareFn(a: {id: number}, b: {id: number}): boolean {
-    return a.id === b.id;
   }
 }

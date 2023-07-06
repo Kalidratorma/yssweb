@@ -3,8 +3,10 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
-import {AlertService, ClubService, ClubTeamService} from '../../services';
+import {AlertService, ClubService, ClubTeamService, TeamYearService} from '../../services';
 import {Club} from "../../entities/club";
+import {TeamYear} from "../../entities/team-year";
+import {ObjectUtility} from "../../utility/object-utility";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -16,6 +18,9 @@ export class AddEditComponent implements OnInit {
   submitted = false;
 
   clubs: Club[] = [];
+  teamYears: TeamYear[] = [];
+
+  protected readonly ObjectUtility = ObjectUtility;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -23,12 +28,19 @@ export class AddEditComponent implements OnInit {
     private router: Router,
     private clubTeamService: ClubTeamService,
     private alertService: AlertService,
-    private clubService: ClubService
+    private clubService: ClubService,
+    private teamYearService: TeamYearService
   ) {
     this.clubService.getAll()
       .pipe(first())
       .subscribe(x => {
         this.clubs = x;
+      });
+
+    this.teamYearService.getAll()
+      .pipe(first())
+      .subscribe(x => {
+        this.teamYears = x;
       });
   }
 
@@ -94,9 +106,5 @@ export class AddEditComponent implements OnInit {
     return this.id
       ? this.clubTeamService.update(this.form.value)
       : this.clubTeamService.create(this.form.value);
-  }
-
-  compareFn(a: {id: number}, b: {id: number}): boolean {
-    return a.id === b.id;
   }
 }

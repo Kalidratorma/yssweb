@@ -1,6 +1,7 @@
 import {GameFormat} from "./game-format";
 import {Composition} from "./composition";
 import {Coach} from "./coach";
+import {TeamYear} from "./team-year";
 
 /**
  * Команда
@@ -20,7 +21,7 @@ export interface Team {
   /**
    * Год команды
    */
-  teamYear: number;
+  teamYear: TeamYear;
 
   /**
    * Формат игры
