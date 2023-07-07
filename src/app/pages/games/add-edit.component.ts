@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import {ObjectUtility} from '../../utility/object-utility'
+import {ObjectUtility} from '../../utility'
 
 import {
   AlertService,
@@ -16,7 +16,7 @@ import {Tournament} from "../../entities/tournament";
 import {Season} from "../../entities/season";
 import {TeamYear} from "../../entities/team-year";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/date-utility";
+import {DateUtility} from "../../utility";
 import {ClubTeam} from "../../entities/club-team";
 
 @Component({templateUrl: './add-edit.component.html'})
@@ -82,7 +82,8 @@ export class AddEditComponent implements OnInit {
       season: [],
       arenaAddress: [''],
       teamYear: [],
-      clubTeam: []
+      clubTeam: [],
+      playerList: []
     });
 
     this.title = 'Добавить игру';
