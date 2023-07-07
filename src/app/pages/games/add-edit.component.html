@@ -1,5 +1,5 @@
 <h1>{{title}}</h1>
-<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSave()">
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Турнир</label>
@@ -27,7 +27,7 @@
       <select formControlName="season" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
               [ngClass]="{ 'is-invalid': submitted && f['season'].errors }">
         <option *ngFor="let season of seasons"
-                [ngValue]="season">{{season.season + "-" + (season.season+1)}}</option>
+                [ngValue]="season">{{season.season + "-" + (season.season + 1)}}</option>
       </select>
       <div *ngIf="submitted && f['season'].errors" class="invalid-feedback">
         <div *ngIf="f['season'].errors?.['required']">Сезон обязателен</div>
@@ -68,13 +68,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let player of f['playerList'].value; index as i">
+    <tr *ngFor="let player of form.value.playerList; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <img
           [src]="player.photo"
           class="me-2"
-          style="width: 20px"
+          style="width: 40px"
           alt="Фото спортсмена"
         />
       </td>
@@ -83,10 +83,10 @@
       <td>{{ player.position.name}}</td>
     </tr>
     </tbody>
+    <a (click)="openPlayerDialog()">Выбрать спортсменов</a>
   </table>
-
   <div class="mb-3">
-    <button [disabled]="submitting" class="btn btn-primary">
+    <button [disabled]="submitting" class="btn btn-primary" (click)="onSave()">
       <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
       Сохранить
     </button>

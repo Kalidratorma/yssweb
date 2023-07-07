@@ -3,14 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 
 import {AlertService, PlayerService, PositionService, TeamYearService} from '../../services';
-import {Player} from "../../entities/player";
-import {GripType} from "../../entities/grip-type";
-import {Physiology} from "../../entities/physiology";
+import {Player, GripType, Physiology, Position, TeamYear} from "../../entities";
 import {throwError} from "rxjs";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/date-utility";
-import {Position} from "../../entities/position";
-import {TeamYear} from "../../entities/team-year";
+import {DateUtility} from "../../utility";
 
 @Component({
   selector: 'player-details',
@@ -19,7 +15,6 @@ import {TeamYear} from "../../entities/team-year";
 export class AddEditComponent implements OnInit {
   id?: number;
   title!: string;
-  photo?: string;
   @Input() player?: Player;
   loading = false;
   submitting = false;

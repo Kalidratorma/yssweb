@@ -12,12 +12,10 @@ import {
   TeamYearService,
   ClubTeamService
 } from '../../services';
-import {Tournament} from "../../entities/tournament";
-import {Season} from "../../entities/season";
-import {TeamYear} from "../../entities/team-year";
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {Tournament, Season, TeamYear, ClubTeam, Player} from "../../entities";
+import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility";
-import {ClubTeam} from "../../entities/club-team";
+import {PlayerDialogComponent} from "../../components";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -33,6 +31,8 @@ export class AddEditComponent implements OnInit {
   teamYears: TeamYear[] = [];
   clubTeams: ClubTeam[] = [];
 
+  checkedPlayers: Set<Player> = new Set<Player>();
+
   gameDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
 
   protected readonly ObjectUtility = ObjectUtility;
@@ -46,7 +46,8 @@ export class AddEditComponent implements OnInit {
     private tournamentService: TournamentService,
     private seasonService: SeasonService,
     private teamYearService: TeamYearService,
-    private clubTeamService: ClubTeamService
+    private clubTeamService: ClubTeamService,
+    public modalService: NgbModal
   ) {
     this.tournamentService.getAll()
       .pipe(first())
@@ -111,7 +112,7 @@ export class AddEditComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  onSave() {
     this.submitted = true;
 
     // reset alerts on submit
@@ -143,5 +144,15 @@ export class AddEditComponent implements OnInit {
     return this.id
       ? this.gameService.update(this.form.value)
       : this.gameService.create(this.form.value);
+  }
+
+  // @ts-ignore
+  openPlayerDialog() {
+    const modalRef = this.modalService.open(PlayerDialogComponent, { size: 'lg' });
+    modalRef.componentInstance.inputPlayers = this.checkedPlayers;
+    modalRef.result.then( value => {
+      this.checkedPlayers = value;
+      this.form.value.playerList = Array.from(value.values());
+    })
   }
 }

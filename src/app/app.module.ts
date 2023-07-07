@@ -10,6 +10,7 @@ import {AlertComponent} from "./pages/alert";
 import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {PlayerDialogModule} from "./components/modals/player-dialog/player-dialog.module";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    PlayerDialogModule
   ],
   declarations: [
     AppComponent,

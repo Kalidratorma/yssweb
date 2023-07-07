@@ -1,0 +1,68 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Выбор спортсменов</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3 row">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Поиск:</label>
+        <div class="col-xs-3 col-sm-auto">
+          <input
+            id="table-complete-search"
+            type="text"
+            class="form-control"
+            name="searchTerm"
+            [(ngModel)]="playerModalService.searchTerm"
+          />
+        </div>
+        <span class="col col-form-label" *ngIf="playerModalService.loading$ | async">Загрузка...</span>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col" sortable="surname" (sort)="onSort($event)">Фамилия</th>
+          <th scope="col" sortable="name" (sort)="onSort($event)">Имя</th>
+          <th scope="col" sortable="birthDate" (sort)="onSort($event)">Год рождения</th>
+          <th scope="col" sortable="position" (sort)="onSort($event)">Амплуа</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let player of players$ | async; let i=index;">
+          <th scope="row"> <input type="checkbox" name="checkboxes" value="{{player.id}}" [(ngModel)]="checkedArray[player.id]"
+                                  (change)="change(player, checkedArray[player.id])">
+          <td>
+            <ngb-highlight [result]="player.surname" [term]="playerModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="player.name" [term]="playerModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="player.birthDate" [term]="playerModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="player.position?.name" [term]="playerModalService.searchTerm"></ngb-highlight>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="playerModalService.page"
+                        [pageSize]="playerModalService.pageSize">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="playerModalService.pageSize">
+          <option [ngValue]="5">5 записей</option>
+          <option [ngValue]="10">10 записей</option>
+          <option [ngValue]="20">20 записей</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close(inputPlayers)">Сохранить</button>
+  </div>
+</div>
