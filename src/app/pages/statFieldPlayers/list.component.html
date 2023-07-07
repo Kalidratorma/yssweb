@@ -4,8 +4,11 @@
   <thead>
   <tr>
     <th style="width: 30%">Спортсмен</th>
-    <th style="width: 30%">Дата игры</th>
-    <th style="width: 30%">Очки</th>
+    <th style="width: 20%">Дата игры</th>
+    <th style="width: 10%">Гол</th>
+    <th style="width: 10%">Пас</th>
+    <th style="width: 10%">Очки</th>
+    <th style="width: 10%">+/-</th>
     <th style="width: 10%"></th>
   </tr>
   </thead>
@@ -13,7 +16,10 @@
   <tr *ngFor="let statFieldPlayer of statFieldPlayers">
     <td>{{statFieldPlayer.player.surname + " " + statFieldPlayer.player.name + " " + statFieldPlayer.player.patronymic}}</td>
     <td>{{statFieldPlayer.game.date}}</td>
+    <td>{{statFieldPlayer.goals}}</td>
+    <td>{{statFieldPlayer.assists}}</td>
     <td>{{statFieldPlayer.points}}</td>
+    <td>{{statFieldPlayer.plusMinus}}</td>
     <td style="white-space: nowrap">
       <a routerLink="edit/{{statFieldPlayer.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
       <button (click)="delete(statFieldPlayer.id)" class="btn btn-sm btn-danger btn-delete-statFieldPlayer" [disabled]="isDeleting[statFieldPlayer.id]">
