@@ -9,7 +9,7 @@ export class ObjectUtility {
    * @param b второй объект сравнения
    * @return Равенство объектов
    */
-  public static compareFn(a: { id: number }, b: { id: number }): boolean {
+  public static objectIdComparer(a: { id: number }, b: { id: number }): boolean {
     if (a && b && "id" in a && "id" in b) {
       return a.id === b.id;
     } else {

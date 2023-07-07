@@ -17,6 +17,7 @@ const tournamentsModule = () => import('./pages/tournaments/tournaments.module')
 const clubsModule = () => import('./pages/clubs/clubs.module').then(x => x.ClubsModule);
 const clubTeamsModule = () => import('./pages/clubTeams/club-teams.module').then(x => x.ClubTeamsModule);
 const gamesModule = () => import('./pages/games/games.module').then(x => x.GamesModule);
+const statFieldPlayersModule = () => import('./pages/statFieldPlayers/stat-field-players.module').then(x => x.StatFieldPlayersModule);
 
 
 const routes: Routes = [
@@ -35,6 +36,9 @@ const routes: Routes = [
   {path: 'clubs', loadChildren: clubsModule},
   {path: 'clubTeams', loadChildren: clubTeamsModule},
   {path: 'games', loadChildren: gamesModule},
+  {path: 'statFieldPlayers', loadChildren: statFieldPlayersModule},
+
+
 
   // otherwise redirect to home
   {path: '**', redirectTo: ''}

@@ -1,0 +1,130 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-2 col">
+      <label class="form-label">Спортсмен</label>
+      <select formControlName="player" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
+              [ngClass]="{ 'is-invalid': submitted && f['player'].errors }">
+        <option *ngFor="let player of players"
+                [ngValue]="player">{{player.surname + " " + player.name + " " + player.teamYear?.year}}</option>
+      </select>
+      <div *ngIf="submitted && f['player'].errors" class="invalid-feedback">
+        <div *ngIf="f['player'].errors?.['required']">Спортсмен обязателен</div>
+      </div>
+    </div>
+    <div class="mb-2 col">
+      <label class="form-label">Игра</label>
+      <select formControlName="game" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
+              [ngClass]="{ 'is-invalid': submitted && f['game'].errors }">
+        <option *ngFor="let game of games" [ngValue]="game">
+          {{game.tournament.name + " Сезон: " + (game.season ? game.season.season + "-" + (game.season.season + 1) : "") + " Дата: " + game.date}}</option>
+      </select>
+      <div *ngIf="submitted && f['game'].errors" class="invalid-feedback">
+        <div *ngIf="f['game'].errors?.['required']">Игра обязательна</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Голы</label>
+      <input type="number" formControlName="goals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Ассисты</label>
+      <input type="number" formControlName="assists" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Очки</label>
+      <label class="form-control">{{(f['goals'].value + f['assists'].value)}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">+/- (показатель полезности)</label>
+      <input type="number" formControlName="plusMinus" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Голы в большинстве</label>
+      <input type="number" formControlName="powerPlayGoals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Голевые пасы в большинстве</label>
+      <input type="number" formControlName="powerPlayAssists" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Голы в меньшинстве</label>
+      <input type="number" formControlName="shorthandedGoals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Голевые пасы в меньшинстве</label>
+      <input type="number" formControlName="shorthandedAssists" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Забил победный гол</label>
+      <input type="number" formControlName="isGameWinningGoals" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Забил решающий послематчевый буллит</label>
+      <input type="number" formControlName="isGameTyingGoals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Голы в пустые ворота</label>
+      <input type="number" formControlName="emptyNetGoals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Общее время на площадке</label>
+      <input type="number" formControlName="timeOnIce" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Количество смен</label>
+      <input type="number" formControlName="shifts" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Броски по воротам</label>
+      <input type="number" formControlName="shotsOnGoal" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Процент реализованных бросков</label>
+      <label class="form-control">{{
+        f['goals'].value &&
+        f['shotsOnGoal'].value ? ((f['goals'].value / f['shotsOnGoal'].value) * 100) + "%" : "0"}}
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Вбрасывания</label>
+      <input type="number" formControlName="faceoffs" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Количество выигранных вбрасываний</label>
+      <input type="number" formControlName="faceoffWins" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Процент выигранных вбрасываний</label>
+      <label class="form-control">{{
+        f['faceoffWins'].value &&
+        f['faceoffs'].value ? ((f['faceoffWins'].value / f['faceoffs'].value) * 100) + "%" : "0"}}
+      </label>
+    </div>
+  </div>
+  <div class="row">
+
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/statFieldPlayers" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

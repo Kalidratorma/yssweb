@@ -3,7 +3,7 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Турнир</label>
-      <select formControlName="tournament" class="form-select" [compareWith]="ObjectUtility.compareFn"
+      <select formControlName="tournament" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
               [ngClass]="{ 'is-invalid': submitted && f['tournament'].errors }">
         <option *ngFor="let tournament of tournaments"
                 [ngValue]="tournament">{{tournament.name}}</option>
@@ -24,7 +24,7 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Сезон</label>
-      <select formControlName="season" class="form-select" [compareWith]="ObjectUtility.compareFn"
+      <select formControlName="season" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
               [ngClass]="{ 'is-invalid': submitted && f['season'].errors }">
         <option *ngFor="let season of seasons"
                 [ngValue]="season">{{season.season + "-" + (season.season+1)}}</option>
@@ -39,7 +39,7 @@
     </div>
     <div class="mb-3 col">
       <label class="form-label">Год команды</label>
-      <select formControlName="teamYear" class="form-select" [compareWith]="ObjectUtility.compareFn">
+      <select formControlName="teamYear" class="form-select" [compareWith]="ObjectUtility.objectIdComparer">
         <option *ngFor="let teamYear of teamYears"
                 [ngValue]="teamYear">{{teamYear.teamName}}</option>
       </select>
@@ -48,7 +48,7 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Команда Соперника</label>
-      <select formControlName="clubTeam" class="form-select" [compareWith]="ObjectUtility.compareFn">
+      <select formControlName="clubTeam" class="form-select" [compareWith]="ObjectUtility.objectIdComparer">
         <option *ngFor="let clubTeam of clubTeams"
                 [ngValue]="clubTeam">{{clubTeam.club.name + " " + clubTeam.name}}</option>
       </select>

@@ -1,0 +1,31 @@
+<h1>Статистика спортсмена</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить статистику спортсмена</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 30%">Спортсмен</th>
+    <th style="width: 30%">Дата игры</th>
+    <th style="width: 30%">Очки</th>
+    <th style="width: 10%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let statFieldPlayer of statFieldPlayers">
+    <td>{{statFieldPlayer.player.surname + " " + statFieldPlayer.player.name + " " + statFieldPlayer.player.patronymic}}</td>
+    <td>{{statFieldPlayer.game.date}}</td>
+    <td>{{statFieldPlayer.points}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{statFieldPlayer.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(statFieldPlayer.id)" class="btn btn-sm btn-danger btn-delete-statFieldPlayer" [disabled]="isDeleting[statFieldPlayer.id]">
+        <span *ngIf="isDeleting[statFieldPlayer.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[statFieldPlayer.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!statFieldPlayers">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

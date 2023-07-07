@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {first} from 'rxjs/operators';
-
-import {AlertService, ClubService, ClubTeamService, TeamYearService} from '../../services';
-import {Club} from "../../entities/club";
-import {TeamYear} from "../../entities/team-year";
 import {ObjectUtility} from "../../utility";
+
+import {AlertService, GameService, PlayerService, StatFieldPlayerService} from '../../services';
+import {Player} from "../../entities/player";
+import {Game} from "../../entities/game";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -17,8 +17,8 @@ export class AddEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
-  clubs: Club[] = [];
-  teamYears: TeamYear[] = [];
+  players: Player[] = [];
+  games: Game[] = [];
 
   protected readonly ObjectUtility = ObjectUtility;
 
@@ -26,21 +26,21 @@ export class AddEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private clubTeamService: ClubTeamService,
+    private statFieldPlayerService: StatFieldPlayerService,
     private alertService: AlertService,
-    private clubService: ClubService,
-    private teamYearService: TeamYearService
+    private playerService: PlayerService,
+    private gameService: GameService
   ) {
-    this.clubService.getAll()
+    this.playerService.getAll()
       .pipe(first())
       .subscribe(x => {
-        this.clubs = x;
+        this.players = x;
       });
 
-    this.teamYearService.getAll()
+    this.gameService.getAll()
       .pipe(first())
       .subscribe(x => {
-        this.teamYears = x;
+        this.games = x;
       });
   }
 
@@ -50,21 +50,41 @@ export class AddEditComponent implements OnInit {
     // form with validation rules
     this.form = this.formBuilder.group({
       id: [],
-      club: [null, Validators.required],
-      name: ['', Validators.required],
-      contacts: [''],
-      teamYear: [],
+      player: [],
+      game: [],
+      date: [],
+      goals: [0,],
+      assists: [0,],
+      points: [],
+      penalties: [0,],
+      powerPlayGoals: [],
+      powerPlayAssists: [],
+      shorthandedGoals: [],
+      shorthandedAssists: [],
+      isGameWinningGoals: [],
+      isGameTyingGoals: [],
+      emptyNetGoals: [],
+      plusMinus: [],
+      timeOnIce: [],
+      shifts: [],
+      shotsOnGoal: [0,],
+      shootingPercentage: [],
+      faceoffs: [0,],
+      faceoffWins: [0,]
     });
 
-    this.title = 'Добавить команду соперника';
+    this.title = 'Добавить статистику игрока';
     if (this.id) {
       // edit mode
-      this.title = 'Редактировать команду соперника';
+      this.title = 'Редактировать статистику игрока';
       this.loading = true;
-      this.clubTeamService.getById(this.id)
+      this.statFieldPlayerService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
+          // this.games = this.games.filter(y => {
+          //   return x.player ? y.teamYear.id == x.player.teamYear?.id : false;
+          // });
           this.loading = false;
         });
     }
@@ -91,8 +111,8 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe({
         next: () => {
-          this.alertService.success('Команда соперника сохранена', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/clubTeams');
+          this.alertService.success('Статистику игрока сохранена', {keepAfterRouteChange: true});
+          this.router.navigateByUrl('/statFieldPlayers');
         },
         error: error => {
           this.alertService.error(error);
@@ -104,7 +124,7 @@ export class AddEditComponent implements OnInit {
   private save() {
     // create or update user based on id param
     return this.id
-      ? this.clubTeamService.update(this.form.value)
-      : this.clubTeamService.create(this.form.value);
+      ? this.statFieldPlayerService.update(this.form.value)
+      : this.statFieldPlayerService.create(this.form.value);
   }
 }
