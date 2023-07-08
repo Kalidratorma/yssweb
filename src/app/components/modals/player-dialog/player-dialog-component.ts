@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, ViewChildren} from '@angular/core';
+import {AfterContentInit, Component, Input, QueryList, ViewChildren} from '@angular/core';
 import {Player} from "../../../entities";
 import {PlayerService} from "../../../services";
 import {Observable} from "rxjs";
@@ -11,31 +11,34 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
   selector: 'player-dialog',
   templateUrl: 'player-dialog-component.html'
 })
-export class PlayerDialogComponent {
+export class PlayerDialogComponent implements AfterContentInit {
   @Input() inputPlayers: Set<Player> = new Set<Player>();
-
-  checkedPlayerMap = new Map<number, boolean>();
 
   checkedArray: boolean[] = [];
 
-  players$: Observable<Player[]>;
-  total$: Observable<number>;
+  players$: Observable<Player[]> = new Observable<Player[]>();
+  total$: Observable<number> = new Observable<number>();
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> = new QueryList<NgbdSortableHeader>();
 
   constructor(public playerService: PlayerService,
               public playerModalService: PlayerModalService,
               public modal: NgbActiveModal) {
-    this.players$ = playerModalService.players$;
-    this.total$ = playerModalService.total$;
-  }
-
-  ngOnInit() {
     this.playerService.getAll()
       .pipe(first())
       .subscribe(x => {
         this.playerModalService.players = x;
+        this.players$ = playerModalService.players$;
+        this.total$ = playerModalService.total$;
       });
+  }
+
+  ngAfterContentInit() {
+    this.playerModalService.pageSize = 5;
+  }
+
+  ngOnInit() {
+
   }
 
   onSort({ column, direction }: SortEvent) {
