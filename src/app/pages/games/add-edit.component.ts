@@ -155,4 +155,12 @@ export class AddEditComponent implements OnInit {
       this.form.value.playerList = Array.from(value.values());
     })
   }
+
+  detach(player: Player) {
+    this.checkedPlayers.delete(player);
+    const index = this.form.value.playerList.indexOf(player, 0);
+    if (index > -1) {
+      this.form.value.playerList.splice(index, 1);
+    }
+  }
 }

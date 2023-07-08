@@ -58,6 +58,14 @@
   <p>Спортсмены</p>
 
   <table class="table table-striped">
+    <colgroup>
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 10%;">
+    </colgroup>
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -65,6 +73,7 @@
       <th scope="col">Фамилия</th>
       <th scope="col">Имя</th>
       <th scope="col">Амплуа</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
@@ -80,10 +89,16 @@
       </td>
       <td>{{ player.surname }}</td>
       <td>{{ player.name}}</td>
-      <td>{{ player.position.name}}</td>
+      <td>{{ player.position && player.position.name ? player.position.name : ''}}</td>
+      <td style="white-space: nowrap">
+        <a routerLink="../statFieldPlayers/edit/game/{{id}}/player/{{player.id}}" class="btn btn-sm btn-primary me-1">Статистика</a>
+        <button type="button" (click)="detach(player)" class="btn btn-sm btn-danger btn-delete-game">
+          <span>Открепить</span>
+        </button>
+      </td>
     </tr>
+    <button type="button" class="btn btn-sm btn-primary me-1" (click)="openPlayerDialog()">Прикрепить спортсменов</button>
     </tbody>
-    <a (click)="openPlayerDialog()">Выбрать спортсменов</a>
   </table>
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary" (click)="onSave()">
