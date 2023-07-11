@@ -77,23 +77,25 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let player of form.value.playerList; index as i">
+    <tr *ngFor="let player of form.value.playerList | keyvalue : compareFn; index as i">
       <th scope="row">{{ i + 1 }}</th>
       <td>
         <img
-          [src]="player.photo"
+          [src]="player.value.photo"
           class="me-2"
           style="width: 40px"
           alt="Фото спортсмена"
         />
       </td>
-      <td>{{ player.surname }}</td>
-      <td>{{ player.name}}</td>
-      <td>{{ player.position && player.position.name ? player.position.name : ''}}</td>
+      <td>{{ player.value.surname }}</td>
+      <td>{{ player.value.name}}</td>
+      <td>{{ player.value.position
+      && player.value.position.name !== undefined
+      && player.value.position.name ? player.value.position?.name : ''}}</td>
       <td style="white-space: nowrap">
-        <a routerLink="../../../statFieldPlayers/edit/game/{{id}}/player/{{player.id}}"
+        <a routerLink="../../../statFieldPlayers/edit/game/{{id}}/player/{{player.value.id}}"
            class="btn btn-sm btn-primary me-1">Статистика</a>
-        <button type="button" (click)="detach(player)" class="btn btn-sm btn-danger btn-delete-game">
+        <button type="button" (click)="detach(player.value)" class="btn btn-sm btn-danger btn-delete-game">
           <span>Открепить</span>
         </button>
       </td>

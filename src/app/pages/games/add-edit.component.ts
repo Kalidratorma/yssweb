@@ -16,6 +16,7 @@ import {Tournament, Season, TeamYear, ClubTeam, Player} from "../../entities";
 import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility";
 import {PlayerDialogComponent} from "../../components";
+import {KeyValue} from "@angular/common";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -146,7 +147,21 @@ export class AddEditComponent implements OnInit {
       : this.gameService.create(this.form.value);
   }
 
-  // @ts-ignore
+  compareFn(a: KeyValue<number, Player>, b: KeyValue<number, Player>): number {
+    let surnameA = a.value.surname.toUpperCase();
+    let surnameB = b.value.surname.toUpperCase();
+    let nameA = a.value.name.toUpperCase();
+    let nameB = b.value.name.toUpperCase();
+    let patronymicA = a.value.patronymic ? a.value.patronymic.toUpperCase() : '';
+    let patronymicB = b.value.patronymic ? b.value.patronymic.toUpperCase() : '';
+    let birthDateA = a.value.birthDate ? a.value.birthDate.toUpperCase() : '';
+    let birthDateB = b.value.birthDate ? b.value.birthDate.toUpperCase() : '';
+    return (surnameA < surnameB) ? -1 : (surnameA > surnameB) ? 1 :
+      (nameA < nameB) ? -1 : (nameA > nameB) ? 1 :
+        (patronymicA < patronymicB) ? -1 : (patronymicA > patronymicB) ? 1 :
+          (birthDateA < birthDateB) ? -1 : (birthDateA > birthDateB) ? 1 : 0;
+  }
+
   openPlayerDialog() {
     const modalRef = this.modalService.open(PlayerDialogComponent, { size: 'lg' });
     modalRef.componentInstance.inputPlayers = this.checkedPlayers;
