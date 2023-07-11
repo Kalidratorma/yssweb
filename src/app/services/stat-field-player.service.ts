@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {StatFieldPlayer} from "../entities/stat-field-player";
+import {StatFieldPlayer} from "../entities";
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +32,11 @@ export class StatFieldPlayerService {
 
   getAllByGameId(id: number) {
     return this.http.get<StatFieldPlayer[]>(`${environment.apiUrl}/statFieldPlayer/byGame/${id}`);
+  }
+
+  getAllByGameIdAndPlayerId(gameId: number, playerId: number) {
+    return this.http.get<StatFieldPlayer>(
+      `${environment.apiUrl}/statFieldPlayer/byGame/${gameId}/byPlayer/${playerId}`);
   }
 
   update(params: StatFieldPlayer) {

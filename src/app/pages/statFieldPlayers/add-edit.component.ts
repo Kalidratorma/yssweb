@@ -5,13 +5,14 @@ import {first} from 'rxjs/operators';
 import {ObjectUtility} from "../../utility";
 
 import {AlertService, GameService, PlayerService, StatFieldPlayerService} from '../../services';
-import {Player} from "../../entities/player";
-import {Game} from "../../entities/game";
+import {Game, Player} from "../../entities";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
   form!: FormGroup;
   id?: number;
+  gameId?: number;
+  playerId?: number;
   title!: string;
   loading = false;
   submitting = false;
@@ -19,6 +20,8 @@ export class AddEditComponent implements OnInit {
 
   players: Player[] = [];
   games: Game[] = [];
+
+  routerLink: string = "/statFieldPlayers";
 
   protected readonly ObjectUtility = ObjectUtility;
 
@@ -31,21 +34,42 @@ export class AddEditComponent implements OnInit {
     private playerService: PlayerService,
     private gameService: GameService
   ) {
-    this.playerService.getAll()
-      .pipe(first())
-      .subscribe(x => {
-        this.players = x;
-      });
-
-    this.gameService.getAll()
-      .pipe(first())
-      .subscribe(x => {
-        this.games = x;
-      });
   }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
+    this.gameId = this.route.snapshot.params['gameId'];
+    this.playerId = this.route.snapshot.params['playerId'];
+
+    if (this.gameId && this.gameId > 0) {
+      this.gameService.getById(this.gameId)
+        .pipe(first())
+        .subscribe(x => {
+          this.games[0] = x;
+          this.form.value.game = x;
+        });
+    } else {
+      this.gameService.getAll()
+        .pipe(first())
+        .subscribe(x => {
+          this.games = x;
+        });
+    }
+
+    if (this.playerId && this.playerId > 0) {
+      this.playerService.getById(this.playerId)
+        .pipe(first())
+        .subscribe(x => {
+          this.players[0] = x;
+          this.form.value.player = x;
+        });
+    } else {
+      this.playerService.getAll()
+        .pipe(first())
+        .subscribe(x => {
+          this.players = x;
+        });
+    }
 
     // form with validation rules
     this.form = this.formBuilder.group({
@@ -82,9 +106,38 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
-          // this.games = this.games.filter(y => {
-          //   return x.player ? y.teamYear.id == x.player.teamYear?.id : false;
-          // });
+          this.loading = false;
+        });
+    } else if (this.gameId && this.gameId > 0 && this.playerId && this.playerId > 0) {
+      this.routerLink = "/games/edit/" + this.gameId;
+      this.statFieldPlayerService.getAllByGameIdAndPlayerId(this.gameId, this.playerId)
+        .pipe(first())
+        .subscribe(x => {
+          if (x && x.id) {
+            this.title = 'Редактировать статистику игрока';
+            this.form.patchValue(x);
+          }
+          this.loading = false;
+        });
+    } else if (this.gameId && this.gameId > 0) {
+      this.statFieldPlayerService.getAllByGameId(this.gameId)
+        .pipe(first())
+        .subscribe(x => {
+          if (x && x.length > 0) {
+            this.title = 'Редактировать статистику игрока';
+            this.form.patchValue(x);
+          }
+          this.loading = false;
+        });
+    } else if (this.playerId && this.playerId > 0) {
+      this.routerLink = "/players/edit/" + this.playerId;
+      this.statFieldPlayerService.getAllByPlayerId(this.playerId)
+        .pipe(first())
+        .subscribe(x => {
+          if (x && x.length > 0) {
+            this.title = 'Редактировать статистику игрока';
+            this.form.patchValue(x);
+          }
           this.loading = false;
         });
     }
@@ -112,7 +165,7 @@ export class AddEditComponent implements OnInit {
       .subscribe({
         next: () => {
           this.alertService.success('Статистику игрока сохранена', {keepAfterRouteChange: true});
-          this.router.navigateByUrl('/statFieldPlayers');
+          this.router.navigateByUrl(this.routerLink);
         },
         error: error => {
           this.alertService.error(error);
@@ -122,6 +175,12 @@ export class AddEditComponent implements OnInit {
   }
 
   private save() {
+    if (this.playerId && this.playerId > 0) {
+      this.form.value.player = this.players[0];
+    }
+    if (this.gameId && this.gameId > 0) {
+      this.form.value.game = this.games[0];
+    }
     // create or update user based on id param
     return this.id
       ? this.statFieldPlayerService.update(this.form.value)

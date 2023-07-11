@@ -3,24 +3,41 @@
   <div class="row">
     <div class="mb-2 col">
       <label class="form-label">Спортсмен</label>
-      <select formControlName="player" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
-              [ngClass]="{ 'is-invalid': submitted && f['player'].errors }">
-        <option *ngFor="let player of players"
-                [ngValue]="player">{{player.surname + " " + player.name + " " + player.teamYear?.year}}</option>
-      </select>
-      <div *ngIf="submitted && f['player'].errors" class="invalid-feedback">
-        <div *ngIf="f['player'].errors?.['required']">Спортсмен обязателен</div>
+      <div *ngIf="undefined!==playerId && playerId > 0 && players[0] && players[0].surname">
+        <label class="form-control">
+          {{players[0].surname + " " + players[0].name + " " + players[0].teamYear?.year}}
+        </label>
+      </div>
+      <div *ngIf="undefined===playerId || playerId <= 0">
+        <select formControlName="player" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
+                [ngClass]="{ 'is-invalid': submitted && f['player'].errors }">
+          <option *ngFor="let player of players"
+                  [ngValue]="player">{{player.surname + " " + player.name + " " + player.teamYear?.year}}</option>
+        </select>
+        <div *ngIf="submitted && f['player'].errors" class="invalid-feedback">
+          <div *ngIf="f['player'].errors?.['required']">Спортсмен обязателен</div>
+        </div>
       </div>
     </div>
     <div class="mb-2 col">
       <label class="form-label">Игра</label>
-      <select formControlName="game" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
-              [ngClass]="{ 'is-invalid': submitted && f['game'].errors }">
-        <option *ngFor="let game of games" [ngValue]="game">
-          {{game.tournament.name + " Сезон: " + (game.season ? game.season.season + "-" + (game.season.season + 1) : "") + " Дата: " + game.date}}</option>
-      </select>
-      <div *ngIf="submitted && f['game'].errors" class="invalid-feedback">
-        <div *ngIf="f['game'].errors?.['required']">Игра обязательна</div>
+      <div *ngIf="undefined!==gameId && gameId > 0 && games[0]">
+        <label class="form-control">
+          {{games[0].tournament.name +
+        " Сезон: " + (games[0].season ? games[0].season.season + "-" + (games[0].season.season + 1) : "") +
+        " Дата: " + games[0].date}}
+        </label>
+      </div>
+      <div *ngIf="undefined===playerId || playerId <= 0">
+        <select formControlName="game" class="form-select"
+                [compareWith]="ObjectUtility.objectIdComparer"
+                [ngClass]="{ 'is-invalid': submitted && f['game'].errors }">
+          <option *ngFor="let game of games" [ngValue]="game">
+            {{game.tournament.name + " Сезон: " + (game.season ? game.season.season + "-" + (game.season.season + 1) : "") + " Дата: " + game.date}}</option>
+        </select>
+        <div *ngIf="submitted && f['game'].errors" class="invalid-feedback">
+          <div *ngIf="f['game'].errors?.['required']">Игра обязательна</div>
+        </div>
       </div>
     </div>
   </div>
@@ -122,7 +139,7 @@
       <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
       Сохранить
     </button>
-    <a routerLink="/statFieldPlayers" class="btn btn-link">Отмена</a>
+    <a [routerLink]="routerLink" class="btn btn-link">Отмена</a>
   </div>
 </form>
 <div *ngIf="loading" class="text-center m-5">

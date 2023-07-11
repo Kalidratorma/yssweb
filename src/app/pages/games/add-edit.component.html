@@ -91,13 +91,15 @@
       <td>{{ player.name}}</td>
       <td>{{ player.position && player.position.name ? player.position.name : ''}}</td>
       <td style="white-space: nowrap">
-        <a routerLink="../statFieldPlayers/edit/game/{{id}}/player/{{player.id}}" class="btn btn-sm btn-primary me-1">Статистика</a>
+        <a routerLink="../../../statFieldPlayers/edit/game/{{id}}/player/{{player.id}}"
+           class="btn btn-sm btn-primary me-1">Статистика</a>
         <button type="button" (click)="detach(player)" class="btn btn-sm btn-danger btn-delete-game">
           <span>Открепить</span>
         </button>
       </td>
     </tr>
-    <button type="button" class="btn btn-sm btn-primary me-1" (click)="openPlayerDialog()">Прикрепить спортсменов</button>
+    <button type="button" class="btn btn-sm btn-primary me-1" (click)="openPlayerDialog()">Прикрепить спортсменов
+    </button>
     </tbody>
   </table>
   <div class="mb-3">
