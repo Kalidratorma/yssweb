@@ -32,3 +32,5 @@ export * from './tournament';
 export * from './unit';
 export * from './user';
 export * from './сontent-file';
+export * from './game-end-enum';
+export * from './stat-game'

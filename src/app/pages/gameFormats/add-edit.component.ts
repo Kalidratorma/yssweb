@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {GameFormatService, AlertService} from '../../services';
-import {getIceTypeMap, IceType} from "../../entities/ice-type";
+import {getIceTypeMap, IceType} from "../../entities";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {

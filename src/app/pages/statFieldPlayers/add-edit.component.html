@@ -28,7 +28,7 @@
         " Дата: " + games[0].date}}
         </label>
       </div>
-      <div *ngIf="undefined===playerId || playerId <= 0">
+      <div *ngIf="undefined===gameId || gameId <= 0">
         <select formControlName="game" class="form-select"
                 [compareWith]="ObjectUtility.objectIdComparer"
                 [ngClass]="{ 'is-invalid': submitted && f['game'].errors }">
@@ -130,9 +130,6 @@
         f['faceoffs'].value ? ((f['faceoffWins'].value / f['faceoffs'].value) * 100) + "%" : "0"}}
       </label>
     </div>
-  </div>
-  <div class="row">
-
   </div>
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary">

@@ -1,0 +1,75 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Игра</label>
+      <div *ngIf="undefined!==gameId && gameId > 0 && games[0]">
+        <label class="form-control">
+          {{games[0].tournament.name +
+        " Сезон: " + (games[0].season ? games[0].season.season + "-" + (games[0].season.season + 1) : "") +
+        " Дата: " + games[0].date}}
+        </label>
+      </div>
+      <div *ngIf="undefined===gameId || gameId <= 0">
+        <select formControlName="game" class="form-select"
+                [compareWith]="ObjectUtility.objectIdComparer"
+                [ngClass]="{ 'is-invalid': submitted && f['game'].errors }">
+          <option *ngFor="let game of games" [ngValue]="game">
+            {{game.tournament.name + " Сезон: " + (game.season ? game.season.season + "-" + (game.season.season + 1) : "") + " Дата: " + game.date}}</option>
+        </select>
+        <div *ngIf="submitted && f['game'].errors" class="invalid-feedback">
+          <div *ngIf="f['game'].errors?.['required']">Игра обязательна</div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Тип окончания игры (основное время, овертайм, буллиты)</label>
+      <select formControlName="gameEndEnum" class="form-select"
+              [ngClass]="{ 'is-invalid': submitted && f['gameEndType'].errors }">
+        <option *ngFor="let gameEndEnumIns of gameEndEnumMap.keys()"
+                [ngValue]="gameEndEnumIns">{{gameEndEnumMap.get(gameEndEnumIns)}}</option>
+      </select>
+      <div *ngIf="submitted && f['gameEndType'].errors" class="invalid-feedback">
+        <div *ngIf="f['gameEndType'].errors?.['required']">Тип окончания игры обязателен!</div>
+      </div>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Общее количество набранных очков</label>
+      <input type="number" formControlName="points" class="form-control"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Количество заброшенных шайб</label>
+      <input type="number" formControlName="goals" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Количество пропущенных шайб</label>
+      <input type="number" formControlName="goalsAgainst" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Общее количество заброшенных и пропущенных шайб</label>
+      <label class="form-control">{{(f['goals'].value + f['goalsAgainst'].value)}}</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-3 col">
+      <label class="form-label">Количество минут штрафа</label>
+      <input type="number" formControlName="penaltiesInMinutes" class="form-control"/>
+    </div>
+    <div class="mb-3 col">
+      <label class="form-label">Количество минут штрафа соперника</label>
+      <input type="number" formControlName="penaltiesInMinutesAgainst" class="form-control"/>
+    </div>
+  </div>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a [routerLink]="routerLink" class="btn btn-link">Отмена</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

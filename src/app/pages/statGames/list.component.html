@@ -1,0 +1,36 @@
+<h1>Статистика игр</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить статистику игры</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 20%">Турнир</th>
+    <th style="width: 15%">Сезон</th>
+    <th style="width: 15%">Дата</th>
+    <th style="width: 15%">Год команды</th>
+    <th style="width: 15%">Соперник</th>
+    <th style="width: 20%"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let statGame of statGames">
+    <td><p *ngIf="statGame.game.tournament">{{statGame.game.tournament.name}}</p></td>
+    <td><p *ngIf="statGame.game.season">{{statGame.game.season.season}}-{{statGame.game.season.season+1}}</p></td>
+    <td>{{statGame.game.date | date: "dd.MM.yyyy г."}}</td>
+    <td><p *ngIf="statGame.game.teamYear">{{statGame.game.teamYear.year}}</p></td>
+    <td><p *ngIf="statGame.game.clubTeam">{{statGame.game.clubTeam.club.name + " " + statGame.game.clubTeam.name}}</p></td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{statGame.game.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(statGame.game.id)" class="btn btn-sm btn-danger btn-delete-statGame"
+              [disabled]="isDeleting[statGame.game.id]">
+        <span *ngIf="isDeleting[statGame.game.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[statGame.game.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!statGames">
+    <td colspan="4" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

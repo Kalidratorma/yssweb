@@ -13,3 +13,4 @@ export * from './club.service';
 export * from './club-team.service';
 export * from './game.service';
 export * from './stat-field-player.service';
+export * from './stat-game.service';
