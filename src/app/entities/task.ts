@@ -1,7 +1,7 @@
 import {Player} from "./player";
 import {JustDate} from "./just-date";
 import {Coach} from "./coach";
-import {ContentFile} from "./сontent-file";
+import {ContentFile} from "./content-file";
 
 /**
  * Задание тренера

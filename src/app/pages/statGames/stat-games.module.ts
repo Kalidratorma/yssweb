@@ -6,6 +6,7 @@ import {StatGamesRoutingModule} from './stat-games-routing.module';
 import {LayoutComponent} from './layout.component';
 import {ListComponent} from './list.component';
 import {AddEditComponent} from './add-edit.component';
+import {UploadModule} from "../../components/upload/upload.module";
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import {AddEditComponent} from './add-edit.component';
     ReactiveFormsModule,
     StatGamesRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UploadModule
   ],
   declarations: [
     LayoutComponent,

@@ -1,9 +1,9 @@
 import {AfterContentInit, Component, Input, QueryList, ViewChildren} from '@angular/core';
-import {Player} from "../../../entities";
-import {PlayerService} from "../../../services";
+import {Player} from "../../entities";
+import {PlayerService} from "../../services";
 import {Observable} from "rxjs";
-import {NgbdSortableHeader, SortEvent} from "../../../helpers/player.sortable.directive";
-import {PlayerModalService} from "../../../services/player.modal.service";
+import {NgbdSortableHeader, SortEvent} from "../../helpers/player.sortable.directive";
+import {PlayerModalService} from "../../services/player.modal.service";
 import {first} from "rxjs/operators";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 

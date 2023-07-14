@@ -23,11 +23,11 @@
       </div>
     </div>
     <div class="mb-3 col">
-      <label class="form-label">Тип окончания игры (основное время, овертайм, буллиты)</label>
-      <select formControlName="gameEndEnum" class="form-select"
+      <label class="form-label">Основное время/овертайм/буллиты</label>
+      <select formControlName="gameEndType" class="form-select"
               [ngClass]="{ 'is-invalid': submitted && f['gameEndType'].errors }">
-        <option *ngFor="let gameEndEnumIns of gameEndEnumMap.keys()"
-                [ngValue]="gameEndEnumIns">{{gameEndEnumMap.get(gameEndEnumIns)}}</option>
+        <option *ngFor="let gameEndTypeIns of gameEndEnumMap.keys()"
+                [ngValue]="gameEndTypeIns">{{gameEndEnumMap.get(gameEndTypeIns)}}</option>
       </select>
       <div *ngIf="submitted && f['gameEndType'].errors" class="invalid-feedback">
         <div *ngIf="f['gameEndType'].errors?.['required']">Тип окончания игры обязателен!</div>
@@ -48,7 +48,7 @@
       <input type="number" formControlName="goalsAgainst" class="form-control"/>
     </div>
     <div class="mb-3 col">
-      <label class="form-label">Общее количество заброшенных и пропущенных шайб</label>
+      <label class="form-label">Общее количество шайб</label>
       <label class="form-control">{{(f['goals'].value + f['goalsAgainst'].value)}}</label>
     </div>
   </div>
@@ -62,6 +62,11 @@
       <input type="number" formControlName="penaltiesInMinutesAgainst" class="form-control"/>
     </div>
   </div>
+
+  <div class="row">
+    <upload-dialog [requiredFileType]="'jpg, jpeg, png'">Загрузка...</upload-dialog>
+  </div>
+
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary">
       <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>

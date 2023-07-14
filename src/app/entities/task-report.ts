@@ -1,6 +1,6 @@
 import {Task} from "./task";
 import {Player} from "./player";
-import {ContentFile} from "./сontent-file";
+import {ContentFile} from "./content-file";
 
 /**
  * Отчет по заданию тренера

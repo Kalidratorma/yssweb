@@ -15,7 +15,7 @@ import {
 import {Tournament, Season, TeamYear, ClubTeam, Player} from "../../entities";
 import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {DateUtility} from "../../utility";
-import {PlayerDialogComponent} from "../../components";
+import {PlayerDialogComponent} from "../../modals";
 import {KeyValue} from "@angular/common";
 
 @Component({templateUrl: './add-edit.component.html'})

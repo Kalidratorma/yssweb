@@ -7,7 +7,7 @@ import {LayoutComponent} from './layout.component';
 import {ListComponent} from './list.component';
 import {AddEditComponent} from './add-edit.component';
 import {DatepickerModule} from "../../components/datepicker/datepicker.module";
-import {PlayerDialogModule} from "../../components/modals/player-dialog/player-dialog.module";
+import {PlayerDialogModule} from "../../modals/player-dialog/player-dialog.module";
 
 @NgModule({
     imports: [

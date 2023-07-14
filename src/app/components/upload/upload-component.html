@@ -1,0 +1,17 @@
+<div>
+  <div class="input-group custom-file-button">
+    <label class="input-group-text" for="formFileMultiple">Выберите файлы</label>
+    <input type="file" class="form-control"
+           [accept]="requiredFileType"
+           (change)="onFileSelected($event)" id="formFileMultiple" multiple>
+  </div>
+  <div>
+    <ngb-progressbar [showValue]="true" type="success" [value]="uploadProgress"></ngb-progressbar>
+    <button type="button" class="btn-close" (click)="cancelUpload()"
+            *ngIf="uploadProgress > 0 && uploadProgress < 100"></button>
+  </div>
+  <div *ngFor="let contentFile of contentFileSet">
+    <a href="{{environment.apiUrl + '/file/' + contentFile.name}}">{{contentFile.originName}}</a>
+    <button type="button" class="btn-close" (click)="contentFileSet.delete(contentFile)"></button>
+  </div>
+</div>

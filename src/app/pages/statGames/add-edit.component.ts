@@ -34,6 +34,9 @@ export class AddEditComponent implements OnInit {
     private playerService: PlayerService,
     private gameService: GameService
   ) {
+  }
+
+  ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.gameId = this.route.snapshot.params['gameId'];
 
@@ -51,9 +54,6 @@ export class AddEditComponent implements OnInit {
           this.games = x;
         });
     }
-  }
-
-  ngOnInit() {
     // form with validation rules
     this.form = this.formBuilder.group({
       id: [],
@@ -75,7 +75,9 @@ export class AddEditComponent implements OnInit {
       this.statGameService.getById(this.id)
         .pipe(first())
         .subscribe(x => {
-          this.form.patchValue(x);
+          if (x) {
+            this.form.patchValue(x);
+          }
           this.loading = false;
         });
     } else if (this.gameId && this.gameId > 0) {
