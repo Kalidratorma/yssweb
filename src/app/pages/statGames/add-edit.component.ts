@@ -64,7 +64,8 @@ export class AddEditComponent implements OnInit {
       goalsAgainst: [0],
       totalGoals: [0,],
       penaltiesInMinutes: [0,],
-      penaltiesInMinutesAgainst: [0,]
+      penaltiesInMinutesAgainst: [0,],
+      protocolFiles: []
     });
 
     this.title = 'Добавить статистику игры';

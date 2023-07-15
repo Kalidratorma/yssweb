@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FileService} from "../../services";
 import {finalize} from "rxjs/operators";
 import {HttpEventType} from "@angular/common/http";
@@ -13,8 +13,8 @@ import {environment} from "../../../environments/environment";
 })
 export class UploadComponent {
   @Input() requiredFileType: string = "jpg, jpeg, png, svg, webm, ogv, mp4";
-
-  contentFileSet: Set<ContentFile> = new Set<ContentFile>();
+  @Input() contentFileSet: Set<ContentFile> = new Set<ContentFile>();
+  @Output() savedDate: EventEmitter<ContentFile[]> = new EventEmitter<ContentFile[]>;
 
   uploadProgress: number = 0;
   uploadSub: Subscription = new Subscription();
@@ -45,9 +45,19 @@ export class UploadComponent {
           this.uploadProgress = Math.round(event.total ? (100 * (event.loaded / event.total)) : 1);
         } else if (event.type == HttpEventType.Response && event.body) {
           (event.body as ContentFile[]).forEach(
-            cf =>
+            cf => {
+              if (typeof this.contentFileSet['add'] !== 'function') {
+                if (Array.isArray(this.contentFileSet) && this.contentFileSet.length > 0) {
+                  let tempArray: ContentFile[] = this.contentFileSet;
+                  this.contentFileSet = new Set<ContentFile>();
+                  tempArray.forEach( x=> this.contentFileSet.add(x));
+                } else {
+                  this.contentFileSet = new Set<ContentFile>();
+                }
+              }
               this.contentFileSet.add(cf)
-          );
+            });
+          this.savedDate.emit(Array.from(this.contentFileSet.values()));
         }
       })
     }

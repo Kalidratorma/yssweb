@@ -1,5 +1,6 @@
 import {Game} from "./game";
 import {GameEndEnum} from "./game-end-enum";
+import {ContentFile} from "./content-file";
 
 /**
  * Статистика игры
@@ -51,7 +52,21 @@ export class StatGame {
    */
   penaltiesInMinutesAgainst: number;
 
-  constructor(id: number, game: Game, gameEndType: GameEndEnum, points: number, goals: number, goalsAgainst: number, totalGoals: number, penaltiesInMinutes: number, penaltiesInMinutesAgainst: number) {
+  /**
+   * Список файлов с протоколом
+   */
+  protocolFiles: ContentFile[];
+
+  constructor(id: number,
+              game: Game,
+              gameEndType: GameEndEnum,
+              points: number,
+              goals: number,
+              goalsAgainst: number,
+              totalGoals: number,
+              penaltiesInMinutes: number,
+              penaltiesInMinutesAgainst: number,
+              protocolFiles: ContentFile[]) {
     this.id = id;
     this.game = game;
     this.gameEndType = gameEndType;
@@ -61,5 +76,6 @@ export class StatGame {
     this.totalGoals = totalGoals;
     this.penaltiesInMinutes = penaltiesInMinutes;
     this.penaltiesInMinutesAgainst = penaltiesInMinutesAgainst;
+    this.protocolFiles = protocolFiles;
   }
 }
