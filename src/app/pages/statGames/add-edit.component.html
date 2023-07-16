@@ -66,7 +66,7 @@
   <div class="row">
     <upload-dialog [requiredFileType]="'jpg, jpeg, png'"
                    [contentFileSet]="f['protocolFiles'].value"
-    (savedDate)="form.value.protocolFiles = $event">Загрузка...</upload-dialog>
+    (savedData)="form.value.protocolFiles = $event">Загрузка...</upload-dialog>
   </div>
 
   <div class="mb-3">

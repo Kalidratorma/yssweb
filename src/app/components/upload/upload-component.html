@@ -12,6 +12,6 @@
   </div>
   <div *ngFor="let contentFile of contentFileSet">
     <a href="{{environment.apiUrl + '/file/' + contentFile.name}}">{{contentFile.originName}}</a>
-    <button type="button" class="btn-close" (click)="contentFileSet.delete(contentFile)"></button>
+    <button type="button" class="btn-close" (click)="delete(contentFile)"></button>
   </div>
 </div>
