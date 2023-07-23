@@ -12,7 +12,7 @@
   <tbody>
   <tr *ngFor="let contract of contracts">
     <td>{{contract.contractNumber}}</td>
-    <td>{{contract.contractType}}</td>
+    <td>{{contractTypeMap.get(contract.contractType)}}</td>
     <td>{{contract.expDate | date: "dd.MM.yyyy г."}}</td>
     <td style="white-space: nowrap">
       <a routerLink="edit/{{contract.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>

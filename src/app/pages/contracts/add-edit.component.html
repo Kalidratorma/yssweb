@@ -25,13 +25,13 @@
   <div class="row">
     <div class="mb-3 col">
       <label class="form-label">Тип договора</label>
-      <select formControlName="contractType" class="form-select">
-        <option value="CLIENT">Клиент</option>
-        <option value="COACH">Тренер</option>
-        <option value="CONTRACTOR">Контрагент</option>
+      <select formControlName="contractType" class="form-select"
+              [ngClass]="{ 'is-invalid': submitted && f['contractType'].errors }">
+        <option *ngFor="let contractTypeIns of contractTypeMap.keys()"
+                [ngValue]="contractTypeIns">{{contractTypeMap.get(contractTypeIns)}}</option>
       </select>
-      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
-        <div *ngIf="f['role'].errors?.['required']">Пол обязателен</div>
+      <div *ngIf="submitted && f['contractType'].errors" class="invalid-feedback">
+        <div *ngIf="f['contractType'].errors?.['required']">Тип договора обязателен!</div>
       </div>
     </div>
     <div class="mb-3 col">

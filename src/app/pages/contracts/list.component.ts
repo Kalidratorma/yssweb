@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 
-import {Contract} from "../../entities/contract";
+import {Contract, ContractType, getContractTypeMap} from "../../entities";
 import {ContractService} from "../../services";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
   contracts?: Contract[];
   isDeleting: boolean[] = [];
+  contractTypeMap: Map<ContractType, string> = getContractTypeMap();
 
   constructor(private contractService: ContractService) {
   }

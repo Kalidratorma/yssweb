@@ -28,15 +28,15 @@ export interface Contract {
   /**
    * Тип договора
    */
-  contractType?: ContractType;
+  contractType: ContractType;
 
   /**
    * Срок действия договора
    */
-  expDate?: string;
+  expDate: string;
 
   /**
    * Условия оплаты
    */
-  paymentTerms?: string;
+  paymentTerms: string;
 }

@@ -5,7 +5,8 @@ import {first} from 'rxjs/operators';
 
 import {AlertService, ContractService} from '../../services';
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/date-utility";
+import {DateUtility} from "../../utility";
+import {ContractType, getContractTypeMap} from "../../entities";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -15,6 +16,8 @@ export class AddEditComponent implements OnInit {
   loading = false;
   submitting = false;
   submitted = false;
+
+  contractTypeMap: Map<ContractType, string> = getContractTypeMap();
 
   expDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
 

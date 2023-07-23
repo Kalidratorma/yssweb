@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 
-import {Game} from "../../entities/game";
+import {Game} from "../../entities";
 import {GameService} from "../../services";
 
 @Component({templateUrl: 'list.component.html'})

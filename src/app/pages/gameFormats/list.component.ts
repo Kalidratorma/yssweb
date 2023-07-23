@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 
 import {GameFormatService} from '../../services';
-import {GameFormat} from "../../entities/game-format";
-import {getIceTypeMap, IceType} from "../../entities/ice-type";
+import {GameFormat} from "../../entities";
+import {getIceTypeMap, IceType} from "../../entities";
 
 @Component({templateUrl: 'list.component.html'})
 export class ListComponent implements OnInit {
