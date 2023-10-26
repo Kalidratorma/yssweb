@@ -4,8 +4,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
 
 import {AlertService, ParentService} from '../../services';
-import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {DateUtility} from "../../utility/date-utility";
+import {NgbDateStruct, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {DateUtility} from "../../utility";
+import {PlayerDialogComponent} from "../../modals";
+import {Player} from "../../entities";
+import {KeyValue} from "@angular/common";
 
 @Component({templateUrl: './add-edit.component.html'})
 export class AddEditComponent implements OnInit {
@@ -16,6 +19,8 @@ export class AddEditComponent implements OnInit {
   submitting = false;
   submitted = false;
 
+  checkedPlayers: Set<Player> = new Set<Player>();
+
   birthDate: NgbDateStruct = DateUtility.getNgbDateStructFromDate(new Date());
 
   constructor(
@@ -23,7 +28,8 @@ export class AddEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private parentService: ParentService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public modalService: NgbModal
   ) {
   }
 
@@ -102,5 +108,37 @@ export class AddEditComponent implements OnInit {
     return this.id
       ? this.parentService.update(this.form.value)
       : this.parentService.create(this.form.value);
+  }
+
+  openPlayerDialog() {
+    const modalRef = this.modalService.open(PlayerDialogComponent, { size: 'lg' });
+    modalRef.componentInstance.inputPlayers = this.checkedPlayers;
+    modalRef.result.then( value => {
+      this.checkedPlayers = value;
+      this.form.value.playerList = Array.from(value.values());
+    })
+  }
+
+  detach(player: Player) {
+    this.checkedPlayers.delete(player);
+    const index = this.form.value.playerList.indexOf(player, 0);
+    if (index > -1) {
+      this.form.value.playerList.splice(index, 1);
+    }
+  }
+
+  compareFn(a: KeyValue<number, Player>, b: KeyValue<number, Player>): number {
+    let surnameA = a.value.surname.toUpperCase();
+    let surnameB = b.value.surname.toUpperCase();
+    let nameA = a.value.name.toUpperCase();
+    let nameB = b.value.name.toUpperCase();
+    let patronymicA = a.value.patronymic ? a.value.patronymic.toUpperCase() : '';
+    let patronymicB = b.value.patronymic ? b.value.patronymic.toUpperCase() : '';
+    let birthDateA = a.value.birthDate ? a.value.birthDate.toUpperCase() : '';
+    let birthDateB = b.value.birthDate ? b.value.birthDate.toUpperCase() : '';
+    return (surnameA < surnameB) ? -1 : (surnameA > surnameB) ? 1 :
+      (nameA < nameB) ? -1 : (nameA > nameB) ? 1 :
+        (patronymicA < patronymicB) ? -1 : (patronymicA > patronymicB) ? 1 :
+          (birthDateA < birthDateB) ? -1 : (birthDateA > birthDateB) ? 1 : 0;
   }
 }

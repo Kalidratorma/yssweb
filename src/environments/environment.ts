@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://kalidratorma.com/api'
+  apiUrl: 'https://localhost:8000/api'
 };
 
 /*

@@ -2,6 +2,7 @@ import {Tournament} from "./tournament";
 import {TeamYear} from "./team-year";
 import {Season} from "./season";
 import {ClubTeam} from "./club-team";
+import {Player} from "./player";
 
 /**
  * Игра
@@ -48,7 +49,12 @@ export class Game {
    */
   clubTeam: ClubTeam;
 
-  constructor(id: number, tournament: Tournament, date: string, time: string, season: Season, arenaAddress: string, teamYear: TeamYear, clubTeam: ClubTeam) {
+  /**
+   * Спортсмены
+   */
+  playerList: Set<Player>;
+
+  constructor(id: number, tournament: Tournament, date: string, time: string, season: Season, arenaAddress: string, teamYear: TeamYear, clubTeam: ClubTeam, playerList: Set<Player>) {
     this.id = id;
     this.tournament = tournament;
     this.date = date;
@@ -57,5 +63,6 @@ export class Game {
     this.arenaAddress = arenaAddress;
     this.teamYear = teamYear;
     this.clubTeam = clubTeam;
+    this.playerList = playerList;
   }
 }

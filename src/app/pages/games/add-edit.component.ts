@@ -97,6 +97,7 @@ export class AddEditComponent implements OnInit {
         .pipe(first())
         .subscribe(x => {
           this.form.patchValue(x);
+
           if (x.date) {
             let eDate = DateUtility.getNgbDateStructFromDbFormat(x.date);
             if (eDate) {

@@ -46,9 +46,58 @@
       </div>
     </div>
   </div>
+  <p>Спортсмены</p>
+
+  <table class="table table-striped">
+    <colgroup>
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 10%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 10%;">
+    </colgroup>
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Фото</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Амплуа</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let player of form.value.playerList | keyvalue : compareFn; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <img
+          [src]="player.value.photo"
+          class="me-2"
+          style="width: 40px"
+          alt="Фото спортсмена"
+        />
+      </td>
+      <td>{{ player.value.surname }}</td>
+      <td>{{ player.value.name}}</td>
+      <td>{{ player.value.position
+      && player.value.position.name !== undefined
+      && player.value.position.name ? player.value.position.name : ''}}</td>
+      <td style="white-space: nowrap">
+        <a routerLink="../../../statFieldPlayers/edit/game/{{id}}/player/{{player.value.id}}"
+           class="btn btn-sm btn-primary me-1">Статистика</a>
+        <button type="button" (click)="detach(player.value)" class="btn btn-sm btn-danger btn-delete-game">
+          <span>Открепить</span>
+        </button>
+      </td>
+    </tr>
+    <button type="button" class="btn btn-sm btn-primary me-1" (click)="openPlayerDialog()">Прикрепить спортсменов
+    </button>
+    </tbody>
+  </table>
   <div class="mb-3">
     <a routerLink="../contracts/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Договора</a>
-    <a routerLink="../players/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Спортсмены</a>
+<!--    <a routerLink="../players/byParent/{{id}}" class="btn btn-sm btn-primary me-1">Спортсмены</a>-->
   </div>
   <div class="mb-3">
     <button [disabled]="submitting" class="btn btn-primary">
