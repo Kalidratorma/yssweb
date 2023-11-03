@@ -9,7 +9,7 @@ import {TeamYear} from "./team-year";
 /**
  * Спортсмен
  */
-export interface Player extends Person {
+export class Player extends Person {
 
   /**
    * Идентификатор
@@ -24,7 +24,7 @@ export interface Player extends Person {
   /**
    * Родители
    */
-  parents: Parent[];
+  parents: Set<Parent>;
 
   /**
    * Игровой номер
@@ -55,4 +55,17 @@ export interface Player extends Person {
    * Статистика
    */
   stats?: Stat[];
+
+  constructor(surname: string, name: string, patronymic: string, sex: string, birthDate: string, email: string, phoneNumber: string, photo: string, id: number, restrictions: string, parents: Set<Parent>, number: number, teamYear: TeamYear, position: Position, contract: Contract, physiologyList: Physiology[], stats: Stat[]) {
+    super(surname, name, patronymic, sex, birthDate, email, phoneNumber, photo);
+    this.id = id;
+    this.restrictions = restrictions;
+    this.parents = parents;
+    this.number = number;
+    this.teamYear = teamYear;
+    this.position = position;
+    this.contract = contract;
+    this.physiologyList = physiologyList;
+    this.stats = stats;
+  }
 }

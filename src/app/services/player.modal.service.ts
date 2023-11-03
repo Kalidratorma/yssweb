@@ -19,8 +19,8 @@ interface State {
   sortDirection: SortDirection;
 }
 
-const compare = (v1: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Parent[],
-                 v2: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Parent[]) => {
+const compare = (v1: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Set<Parent>,
+                 v2: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Set<Parent>) => {
   let result: number = 0;
   if (v1 && v2) {
     result = (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);

@@ -26,13 +26,13 @@ export class Parent extends Person {
   /**
    * Игроки
    */
-  playerList: Set<Player>;
+  players: Set<Player>;
 
-  constructor(surname: string, name: string, patronymic: string, sex: string, birthDate: string, email: string, phoneNumber: string, photo: string, id: number, user: User, contracts: Set<Contract>, playerList: Set<Player>) {
+  constructor(surname: string, name: string, patronymic: string, sex: string, birthDate: string, email: string, phoneNumber: string, photo: string, id: number, user: User, contracts: Set<Contract>, players: Set<Player>) {
     super(surname, name, patronymic, sex, birthDate, email, phoneNumber, photo);
     this.id = id;
     this.user = user;
     this.contracts = contracts;
-    this.playerList = playerList;
+    this.players = players;
   }
 }

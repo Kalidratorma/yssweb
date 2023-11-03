@@ -52,9 +52,9 @@ export class Game {
   /**
    * Спортсмены
    */
-  playerList: Set<Player>;
+  players: Set<Player>;
 
-  constructor(id: number, tournament: Tournament, date: string, time: string, season: Season, arenaAddress: string, teamYear: TeamYear, clubTeam: ClubTeam, playerList: Set<Player>) {
+  constructor(id: number, tournament: Tournament, date: string, time: string, season: Season, arenaAddress: string, teamYear: TeamYear, clubTeam: ClubTeam, players: Set<Player>) {
     this.id = id;
     this.tournament = tournament;
     this.date = date;
@@ -63,6 +63,6 @@ export class Game {
     this.arenaAddress = arenaAddress;
     this.teamYear = teamYear;
     this.clubTeam = clubTeam;
-    this.playerList = playerList;
+    this.players = players;
   }
 }

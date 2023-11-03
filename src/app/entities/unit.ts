@@ -3,7 +3,7 @@ import {Player} from "./player";
 /**
  * Игровое Звено
  */
-export interface Unit {
+export class Unit {
 
   /**
    * Идентификатор
@@ -18,5 +18,11 @@ export interface Unit {
   /**
    * Список игроков в звене
    */
-  playerList: Player[];
+  players: Set<Player>;
+
+  constructor(id: number, unitNumber: number, players: Set<Player>) {
+    this.id = id;
+    this.unitNumber = unitNumber;
+    this.players = players;
+  }
 }

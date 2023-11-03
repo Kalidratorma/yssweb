@@ -47,6 +47,7 @@ export class AddEditComponent implements OnInit {
       sex: [null, Validators.required],
       user: [null],
       contracts: [null],
+      players: [null]
     });
 
     this.title = 'Добавить родителя';
@@ -115,15 +116,15 @@ export class AddEditComponent implements OnInit {
     modalRef.componentInstance.inputPlayers = this.checkedPlayers;
     modalRef.result.then( value => {
       this.checkedPlayers = value;
-      this.form.value.playerList = Array.from(value.values());
+      this.form.value.players = Array.from(value.values());
     })
   }
 
   detach(player: Player) {
     this.checkedPlayers.delete(player);
-    const index = this.form.value.playerList.indexOf(player, 0);
+    const index = this.form.value.players.indexOf(player, 0);
     if (index > -1) {
-      this.form.value.playerList.splice(index, 1);
+      this.form.value.players.splice(index, 1);
     }
   }
 

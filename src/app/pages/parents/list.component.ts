@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {first} from 'rxjs/operators';
 
-import {Parent} from "../../entities/parent";
+import {Parent} from "../../entities";
 import {ParentService} from "../../services";
 
 @Component({templateUrl: 'list.component.html'})
