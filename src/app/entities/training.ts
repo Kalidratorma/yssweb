@@ -1,5 +1,4 @@
-import {Coach, Team, TrainingFormat} from ".";
-import {Time} from "@angular/common";
+import {Coach, TeamYear, TrainingFormat} from ".";
 
 /**
  * Тренировка
@@ -19,17 +18,17 @@ export class Training {
   /**
    * Команда
    */
-  team: Team;
+  teamYear: TeamYear;
 
   /**
    * Дата и время тренировки
    */
-  date: Date;
+  date: string;
 
   /**
    * Время тренировки (начало)
    */
-  time: Time;
+  time: string;
 
   /**
    * Длительность тренировки в минутах
@@ -46,10 +45,10 @@ export class Training {
    */
   coaches: Set<Coach>;
 
-  constructor(id: number, trainingFormat: TrainingFormat, team: Team, date: Date, time: Time, duration: number, mainCoach: Coach, coaches: Set<Coach>) {
+  constructor(id: number, trainingFormat: TrainingFormat, team: TeamYear, date: string, time: string, duration: number, mainCoach: Coach, coaches: Set<Coach>) {
     this.id = id;
     this.trainingFormat = trainingFormat;
-    this.team = team;
+    this.teamYear = team;
     this.date = date;
     this.time = time;
     this.duration = duration;

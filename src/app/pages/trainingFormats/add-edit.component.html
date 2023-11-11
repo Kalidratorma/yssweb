@@ -51,14 +51,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let player of form.value.coaches | keyvalue : compareFn; index as i">
+    <tr *ngFor="let coach of form.value.coaches | keyvalue : compareFn; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ player.value.coachType }}</td>
-      <td>{{ player.value.surname }}</td>
-      <td>{{ player.value.name}}</td>
-      <td>{{ player.value.patronymic}}</td>
+      <td>{{ coach.value.coachType }}</td>
+      <td>{{ coach.value.surname }}</td>
+      <td>{{ coach.value.name}}</td>
+      <td>{{ coach.value.patronymic}}</td>
       <td style="white-space: nowrap">
-        <button type="button" (click)="detach(player.value)" class="btn btn-sm btn-danger btn-delete-game">
+        <button type="button" (click)="detach(coach.value)" class="btn btn-sm btn-danger btn-delete-game">
           <span>Открепить</span>
         </button>
       </td>

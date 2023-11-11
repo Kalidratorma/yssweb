@@ -20,6 +20,7 @@ const gamesModule = () => import('./pages/games/games.module').then(x => x.Games
 const statFieldPlayersModule = () => import('./pages/statFieldPlayers/stat-field-players.module').then(x => x.StatFieldPlayersModule);
 const statGamesModule = () => import('./pages/statGames/stat-games.module').then(x => x.StatGamesModule);
 const trainingFormatModule = () => import('./pages/trainingFormats/training-format.module').then(x => x.TrainingFormatModule);
+const trainingModule = () => import('./pages/trainings/training.module').then(x => x.TrainingModule);
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: 'statFieldPlayers', loadChildren: statFieldPlayersModule},
   {path: 'statGames', loadChildren: statGamesModule},
   {path: 'trainingFormats', loadChildren: trainingFormatModule},
+  {path: 'trainings', loadChildren: trainingModule},
 
   // otherwise redirect to home
   {path: '**', redirectTo: ''}

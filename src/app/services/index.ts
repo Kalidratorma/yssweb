@@ -18,3 +18,4 @@ export * from './file.service';
 export * from './player.modal.service';
 export * from './coach.modal.service';
 export * from './training-format.service';
+export * from './training.service';

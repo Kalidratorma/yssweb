@@ -1,0 +1,107 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Дата</label>
+            <datepicker [dateStruct]="trainingDate" (savedDate)="trainingDate = $event">Загрузка...
+            </datepicker>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Время (начало)</label>
+            <input type="text" formControlName="time" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f['time'].errors }"/>
+            <div *ngIf="submitted && f['time'].errors" class="invalid-feedback">
+                <div *ngIf="f['time'].errors?.['required']">Время обязательно!</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Длительность (минуты)</label>
+            <input type="number" formControlName="duration" class="form-control"
+                   [ngClass]="{ 'is-invalid': submitted && f['duration'].errors }"/>
+            <div *ngIf="submitted && f['duration'].errors" class="invalid-feedback">
+                <div *ngIf="f['duration'].errors?.['required']">Длительность обязательна!</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-3 col">
+            <label class="form-label">Формат</label>
+            <select formControlName="trainingFormat"
+                    class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
+                    [ngClass]="{ 'is-invalid': submitted && f['trainingFormat'].errors }">
+                <option *ngFor="let trainingFormat of trainingFormats"
+                        [ngValue]="trainingFormat">{{trainingFormat.shortName}}</option>
+            </select>
+            <div *ngIf="submitted && f['trainingFormat'].errors" class="invalid-feedback">
+                <div *ngIf="f['trainingFormat'].errors?.['required']">Формат обязателен!</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Команда</label>
+            <select formControlName="teamYear" class="form-select" [compareWith]="ObjectUtility.objectIdComparer"
+                    [ngClass]="{ 'is-invalid': submitted && f['teamYear'].errors }">
+                <option *ngFor="let teamYear of teamYears"
+                        [ngValue]="teamYear">{{teamYear.teamName}}</option>
+            </select>
+            <div *ngIf="submitted && f['teamYear'].errors" class="invalid-feedback">
+                <div *ngIf="f['teamYear'].errors?.['required']">Команда обязательна!</div>
+            </div>
+        </div>
+        <div class="mb-3 col">
+            <label class="form-label">Главный тренер</label>
+            <select formControlName="mainCoach" class="form-select" [compareWith]="ObjectUtility.objectIdComparer">
+                <option *ngFor="let coach of coachDictionary"
+                        [ngValue]="coach">{{coach.surname}}&nbsp;{{coach.name}}&nbsp;{{coach.patronymic}}</option>
+            </select>
+        </div>
+    </div>
+
+    <p>Помощники тренера</p>
+
+    <table class="table table-striped">
+        <colgroup>
+            <col span="1" style="width: 5%;">
+            <col span="1" style="width: 25%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 20%;">
+            <col span="1" style="width: 15%;">
+        </colgroup>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Фамилия</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Отчество</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let coach of form.value.coaches | keyvalue : compareFn; index as i">
+            <th scope="row">{{ i + 1 }}</th>
+            <td>{{ coach.value.coachType }}</td>
+            <td>{{ coach.value.surname }}</td>
+            <td>{{ coach.value.name}}</td>
+            <td>{{ coach.value.patronymic}}</td>
+            <td style="white-space: nowrap">
+                <button type="button" (click)="detach(coach.value)" class="btn btn-sm btn-danger btn-delete-game">
+                    <span>Открепить</span>
+                </button>
+            </td>
+        </tr>
+        <button type="button" class="btn btn-sm btn-primary me-1" (click)="openCoachDialog()">Прикрепить тренеров
+        </button>
+        </tbody>
+    </table>
+    <div class="mb-3">
+        <button [disabled]="submitting" class="btn btn-primary">
+            <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+            Сохранить
+        </button>
+        <a routerLink="/trainings" class="btn btn-link">Отменить</a>
+    </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+    <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

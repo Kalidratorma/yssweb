@@ -1,0 +1,33 @@
+<h1>Тренировки</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить тренировку</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 25%">Дата</th>
+    <th style="width: 25%">Время</th>
+    <th style="width: 25%">Формат</th>
+    <th style="width: 25%">Команда</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let training of trainings">
+    <td>{{training.date}}</td>
+    <td>{{training.time}}</td>
+    <td>{{training.trainingFormat.shortName}}</td>
+    <td>{{training.teamYear.teamName}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{training.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(training.id)" class="btn btn-sm btn-danger btn-delete-training"
+              [disabled]="isDeleting[training.id]">
+        <span *ngIf="isDeleting[training.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[training.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!trainings">
+    <td colspan="3" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>
