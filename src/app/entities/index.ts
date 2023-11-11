@@ -34,3 +34,5 @@ export * from './user';
 export * from './content-file';
 export * from './game-end-enum';
 export * from './stat-game';
+export * from './training-format';
+export * from './training';

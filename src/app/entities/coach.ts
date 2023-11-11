@@ -1,8 +1,6 @@
-import {Contract} from "./contract";
-import {User} from "./user";
-import {Person} from "./person";
+import {Contract, Person, User} from ".";
 
-export interface Coach extends Person {
+export class Coach extends Person {
 
   /**
    * Идентификатор
@@ -28,4 +26,13 @@ export interface Coach extends Person {
    * Пользователь
    */
   user: User;
+
+  constructor(surname: string, name: string, patronymic: string, sex: string, birthDate: string, email: string, phoneNumber: string, photo: string, id: number, education: string, contract: Contract, coachType: string, user: User) {
+    super(surname, name, patronymic, sex, birthDate, email, phoneNumber, photo);
+    this.id = id;
+    this.education = education;
+    this.contract = contract;
+    this.coachType = coachType;
+    this.user = user;
+  }
 }
