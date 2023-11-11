@@ -1,13 +1,13 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import {Directive, EventEmitter, Input, Output} from '@angular/core';
 import {Player} from "../entities";
 
-export type SortColumn = keyof Player | '';
-export type SortDirection = 'asc' | 'desc' | '';
-const rotate: { [key: string]: SortDirection } = { asc: 'desc', desc: '', '': 'asc' };
+export type PlayerSortColumn = keyof Player | '';
+export type PlayerSortDirection = 'asc' | 'desc' | '';
+const rotate: { [key: string]: PlayerSortDirection } = {asc: 'desc', desc: '', '': 'asc'};
 
-export interface SortEvent {
-  column: SortColumn;
-  direction: SortDirection;
+export interface PlayerSortEvent {
+  column: PlayerSortColumn;
+  direction: PlayerSortDirection;
 }
 
 @Directive({
@@ -19,13 +19,13 @@ export interface SortEvent {
     '(click)': 'rotate()',
   },
 })
-export class NgbdSortableHeader {
-  @Input() sortable: SortColumn = '';
-  @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
+export class PlayerSortableHeader {
+  @Input() sortable: PlayerSortColumn = '';
+  @Input() direction: PlayerSortDirection = '';
+  @Output() sort = new EventEmitter<PlayerSortEvent>();
 
   rotate() {
     this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
+    this.sort.emit({column: this.sortable, direction: this.direction});
   }
 }

@@ -15,3 +15,6 @@ export * from './game.service';
 export * from './stat-field-player.service';
 export * from './stat-game.service';
 export * from './file.service';
+export * from './player.modal.service';
+export * from './coach.modal.service';
+export * from './training-format.service';

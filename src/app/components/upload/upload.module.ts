@@ -10,7 +10,7 @@ import {
   NgbProgressbar
 } from "@ng-bootstrap/ng-bootstrap";
 import {UploadComponent} from "./upload-component";
-import {NgbdSortableHeader} from "../../helpers/player.sortable.directive";
+import {PlayerSortableHeader} from "../../helpers";
 
 @NgModule({
   imports: [
@@ -21,7 +21,7 @@ import {NgbdSortableHeader} from "../../helpers/player.sortable.directive";
     NgbModalModule,
     NgbAlertModule,
     JsonPipe,
-    NgbdSortableHeader,
+    PlayerSortableHeader,
     NgbHighlight,
     NgbPagination,
     NgbProgressbar

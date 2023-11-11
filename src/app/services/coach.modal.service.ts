@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 
 import {BehaviorSubject, Observable, of, Subject} from 'rxjs';
 
-import {Contract, Parent, Physiology, Player, Position, Stat, TeamYear} from '../entities';
+import {Contract, Coach, User} from '../entities';
 import {debounceTime, delay, switchMap, tap} from 'rxjs/operators';
-import {PlayerSortColumn, PlayerSortDirection} from '../helpers';
+import {CoachSortColumn, CoachSortDirection} from '../helpers';
 
 interface SearchResult {
-  players: Player[];
+  coaches: Coach[];
   total: number;
 }
 
@@ -15,12 +15,12 @@ interface State {
   page: number;
   pageSize: number;
   searchTerm: string;
-  sortColumn: PlayerSortColumn;
-  sortDirection: PlayerSortDirection;
+  sortColumn: CoachSortColumn;
+  sortDirection: CoachSortDirection;
 }
 
-const compare = (v1: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Set<Parent>,
-                 v2: Contract | undefined | string | Physiology[] | number | Stat[] | TeamYear | Position | Set<Parent>) => {
+const compare = (v1: Contract | undefined | string | number | User,
+                 v2: Contract | undefined | string | number | User) => {
   let result: number = 0;
   if (v1 && v2) {
     result = (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
@@ -28,31 +28,31 @@ const compare = (v1: Contract | undefined | string | Physiology[] | number | Sta
   return result;
 }
 
-function sort(players: Player[], column: PlayerSortColumn, direction: string): Player[] {
+function sort(coaches: Coach[], column: CoachSortColumn, direction: string): Coach[] {
   if (direction === '' || column === '') {
-    return players;
+    return coaches;
   } else {
-    return [...players].sort((a, b) => {
+    return [...coaches].sort((a, b) => {
       const res = compare(a[column], b[column]);
       return direction === 'asc' ? res : -res;
     });
   }
 }
 
-function matches(player: Player, term: string) {
+function matches(coach: Coach, term: string) {
   return (
-    player.surname.toLowerCase().includes(term.toLowerCase()) ||
-    player.name.toLowerCase().includes(term) ||
-    player.teamYear?.year.toString().toLowerCase().includes(term) ||
-    player.position?.name.toLowerCase().includes(term)
+    coach.coachType.toString().toLowerCase().includes(term.toLowerCase()) ||
+    coach.surname.toLowerCase().includes(term.toLowerCase()) ||
+    coach.name.toLowerCase().includes(term.toLowerCase()) ||
+    coach.patronymic.toLowerCase().includes(term.toLowerCase())
   );
 }
 
 @Injectable({providedIn: 'root'})
-export class PlayerModalService {
+export class CoachModalService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _players$ = new BehaviorSubject<Player[]>([]);
+  private _coaches$ = new BehaviorSubject<Coach[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
 
   private _state: State = {
@@ -63,7 +63,7 @@ export class PlayerModalService {
     sortDirection: '',
   };
 
-  private _players: Player[] = [];
+  private _coaches: Coach[] = [];
 
   constructor() {
     this._search$
@@ -75,19 +75,19 @@ export class PlayerModalService {
         tap(() => this._loading$.next(false)),
       )
       .subscribe((result) => {
-        this._players$.next(result.players);
+        this._coaches$.next(result.coaches);
         this._total$.next(result.total);
       });
 
     this._search$.next();
   }
 
-  set players(value: Player[]) {
-    this._players = value;
+  set coaches(value: Coach[]) {
+    this._coaches = value;
   }
 
-  get players$() {
-    return this._players$.asObservable();
+  get coaches$() {
+    return this._coaches$.asObservable();
   }
 
   get total$() {
@@ -122,11 +122,11 @@ export class PlayerModalService {
     this._set({searchTerm});
   }
 
-  set sortColumn(sortColumn: PlayerSortColumn) {
+  set sortColumn(sortColumn: CoachSortColumn) {
     this._set({sortColumn});
   }
 
-  set sortDirection(sortDirection: PlayerSortDirection) {
+  set sortDirection(sortDirection: CoachSortDirection) {
     this._set({sortDirection});
   }
 
@@ -139,14 +139,14 @@ export class PlayerModalService {
     const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
 
     // 1. sort
-    let players = sort(this._players, sortColumn, sortDirection);
+    let coaches = sort(this._coaches, sortColumn, sortDirection);
 
     // 2. filter
-    players = players.filter((player) => matches(player, searchTerm));
-    const total = players.length;
+    coaches = coaches.filter((coach) => matches(coach, searchTerm));
+    const total = coaches.length;
 
     // 3. paginate
-    players = players.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
-    return of({players, total});
+    coaches = coaches.slice((page - 1) * pageSize, (page - 1) * pageSize + pageSize);
+    return of({coaches: coaches, total});
   }
 }

@@ -1,9 +1,8 @@
 import {AfterContentInit, Component, Input, QueryList, ViewChildren} from '@angular/core';
 import {Player} from "../../entities";
-import {PlayerService} from "../../services";
+import {PlayerService, PlayerModalService} from "../../services";
 import {Observable} from "rxjs";
-import {NgbdSortableHeader, SortEvent} from "../../helpers/player.sortable.directive";
-import {PlayerModalService} from "../../services/player.modal.service";
+import {PlayerSortableHeader, PlayerSortEvent} from "../../helpers";
 import {first} from "rxjs/operators";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 
@@ -19,7 +18,7 @@ export class PlayerDialogComponent implements AfterContentInit {
   players$: Observable<Player[]> = new Observable<Player[]>();
   total$: Observable<number> = new Observable<number>();
 
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader> = new QueryList<NgbdSortableHeader>();
+  @ViewChildren(PlayerSortableHeader) headers: QueryList<PlayerSortableHeader> = new QueryList<PlayerSortableHeader>();
 
   constructor(public playerService: PlayerService,
               public playerModalService: PlayerModalService,
@@ -41,7 +40,7 @@ export class PlayerDialogComponent implements AfterContentInit {
 
   }
 
-  onSort({ column, direction }: SortEvent) {
+  onSort({ column, direction }: PlayerSortEvent) {
     // resetting other headers
     this.headers.forEach((header) => {
       if (header.sortable !== column) {

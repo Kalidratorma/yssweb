@@ -1,0 +1,29 @@
+<h1>Форматы тренеровок</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Добавить формат</a>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th style="width: 50%">Краткое наименование</th>
+    <th style="width: 50%">Наименование</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let trainingFormat of trainingFormats">
+    <td>{{trainingFormat.shortName}}</td>
+    <td>{{trainingFormat.name}}</td>
+    <td style="white-space: nowrap">
+      <a routerLink="edit/{{trainingFormat.id}}" class="btn btn-sm btn-primary me-1">Редактировать</a>
+      <button (click)="delete(trainingFormat.id)" class="btn btn-sm btn-danger btn-delete-trainingFormat"
+              [disabled]="isDeleting[trainingFormat.id]">
+        <span *ngIf="isDeleting[trainingFormat.id]" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="!isDeleting[trainingFormat.id]">Удалить</span>
+      </button>
+    </td>
+  </tr>
+  <tr *ngIf="!trainingFormats">
+    <td colspan="3" class="text-center">
+      <span class="spinner-border spinner-border-lg align-center"></span>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,68 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Выбор тренеров</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3 row">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Поиск:</label>
+        <div class="col-xs-3 col-sm-auto">
+          <input
+            id="table-complete-search"
+            type="text"
+            class="form-control"
+            name="searchTerm"
+            [(ngModel)]="coachModalService.searchTerm"
+          />
+        </div>
+        <span class="col col-form-label" *ngIf="coachModalService.loading$ | async">Загрузка...</span>
+      </div>
+
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col" sortable="coachType" (sort)="onSort($event)">Тип</th>
+          <th scope="col" sortable="surname" (sort)="onSort($event)">Фамилия</th>
+          <th scope="col" sortable="name" (sort)="onSort($event)">Имя</th>
+          <th scope="col" sortable="patronymic" (sort)="onSort($event)">Отчество</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let coach of coaches$ | async; let i=index;">
+          <th scope="row"> <input type="checkbox" name="checkboxes" value="{{coach.id}}" [(ngModel)]="checkedArray[coach.id]"
+                                  (change)="change(coach, checkedArray[coach.id])">
+          <td>
+            <ngb-highlight [result]="coach.coachType" [term]="coachModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="coach.surname" [term]="coachModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="coach.name" [term]="coachModalService.searchTerm"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="coach.patronymic" [term]="coachModalService.searchTerm"></ngb-highlight>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="coachModalService.page"
+                        [pageSize]="coachModalService.pageSize">
+        </ngb-pagination>
+
+        <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="coachModalService.pageSize">
+          <option [ngValue]="5">5 записей</option>
+          <option [ngValue]="10">10 записей</option>
+          <option [ngValue]="20">20 записей</option>
+        </select>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close(inputCoaches)">Сохранить</button>
+  </div>
+</div>

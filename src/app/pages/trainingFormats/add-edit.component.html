@@ -1,0 +1,80 @@
+<h1>{{title}}</h1>
+<form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="row">
+    <div class="mb-2 col">
+      <label class="form-label">Краткое наименование</label>
+      <input type="text" formControlName="shortName" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"/>
+      <div *ngIf="submitted && f['shortName'].errors" class="invalid-feedback">
+        <div *ngIf="f['shortName'].errors?.['required']">Краткое наименование формата обязательно!</div>
+      </div>
+    </div>
+    <div class="mb-2 col">
+      <label class="form-label">Наименование</label>
+      <input type="text" formControlName="name" class="form-control"
+             [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"/>
+      <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+        <div *ngIf="f['name'].errors?.['required']">Наименование формата обязательно!</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="mb-1 col">
+      <label class="form-label">Описание</label>
+      <textarea type="text" formControlName="description" class="form-control" rows="4"
+                [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+      <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+        <div *ngIf="f['description'].errors?.['required']">Описание формата обязательно!</div>
+      </div>
+    </div>
+  </div>
+
+  <p>Тренеры</p>
+
+  <table class="table table-striped">
+    <colgroup>
+      <col span="1" style="width: 5%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 15%;">
+    </colgroup>
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Тип</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Отчество</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let player of form.value.coaches | keyvalue : compareFn; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ player.value.coachType }}</td>
+      <td>{{ player.value.surname }}</td>
+      <td>{{ player.value.name}}</td>
+      <td>{{ player.value.patronymic}}</td>
+      <td style="white-space: nowrap">
+        <button type="button" (click)="detach(player.value)" class="btn btn-sm btn-danger btn-delete-game">
+          <span>Открепить</span>
+        </button>
+      </td>
+    </tr>
+    <button type="button" class="btn btn-sm btn-primary me-1" (click)="openCoachDialog()">Прикрепить тренеров
+    </button>
+    </tbody>
+  </table>
+  <div class="mb-3">
+    <button [disabled]="submitting" class="btn btn-primary">
+      <span *ngIf="submitting" class="spinner-border spinner-border-sm me-1"></span>
+      Сохранить
+    </button>
+    <a routerLink="/trainingFormats" class="btn btn-link">Отменить</a>
+  </div>
+</form>
+<div *ngIf="loading" class="text-center m-5">
+  <span class="spinner-border spinner-border-lg align-center"></span>
+</div>

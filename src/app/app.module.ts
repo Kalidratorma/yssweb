@@ -11,6 +11,7 @@ import {ErrorInterceptor, JwtInterceptor} from "./helpers";
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PlayerDialogModule} from "./modals/player-dialog/player-dialog.module";
+import {CoachDialogModule} from "./modals/coach-dialog/coach-dialog.module";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import {PlayerDialogModule} from "./modals/player-dialog/player-dialog.module";
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    PlayerDialogModule
+    PlayerDialogModule,
+    CoachDialogModule
   ],
   declarations: [
     AppComponent,
