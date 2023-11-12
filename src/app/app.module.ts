@@ -12,6 +12,9 @@ import {provideAnimations} from "@angular/platform-browser/animations";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {PlayerDialogModule} from "./modals/player-dialog/player-dialog.module";
 import {CoachDialogModule} from "./modals/coach-dialog/coach-dialog.module";
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import '@angular/common/locales/global/ru';
 
 @NgModule({
   imports: [
@@ -21,7 +24,8 @@ import {CoachDialogModule} from "./modals/coach-dialog/coach-dialog.module";
     AppRoutingModule,
     NgbModule,
     PlayerDialogModule,
-    CoachDialogModule
+    CoachDialogModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   declarations: [
     AppComponent,
